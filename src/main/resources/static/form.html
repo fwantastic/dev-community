@@ -1,0 +1,41 @@
+<html>
+
+<head>
+<link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+
+<body>
+	<form name="createUserForm" method="POST" action="/users">
+		<div class="form-group">
+			<label for="userName">사용자 아이디</label>
+			<input class="form-control" id="userName" name="userName"
+				placeholder="User ID">
+		</div>
+
+		<div class="form-group">
+			<label for="userNickName">사용자 닉네임</label>
+			<input class="form-control" id="userNickName" name="userNickName"
+				placeholder="User Nick Name">
+		</div>
+
+		<div class="form-group">
+			<label for="password">비밀번호</label>
+			<input type="password" id="password" name="password"
+				placeholder="Password">
+		</div>
+
+		<div class="form-group">
+			<label for="userEmail">이메일</label>
+			<input type="email" id="userEmail" name="userEmail"
+				placeholder="Email">
+		</div>
+
+		<button type="submit" class="btn btn-success clearfix pull-right">회원가입</button>
+		<div class="clearfix"></div>
+	</form>
+
+	<script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+</body>
+</html>

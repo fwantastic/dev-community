@@ -1,0 +1,40 @@
+<html>
+
+<head>
+<link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+
+		<table>
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>사용자 이메일</th>
+					<th>사용자 닉네임</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#users}}
+				<tr>
+					<td>{{userId}}</td>
+					<td>{{userEmail}}</td>
+					<td>{{userNickname}}</td>
+					<td>
+						<a href="/users/{{userId}}/updateForm" class="btn btn-success"
+							role="button">수정</a>
+					</td>
+				</tr>
+				{{/users}}
+			</tbody>
+
+		</table>
+
+	</div>
+
+	<script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+</body>
+</html>
