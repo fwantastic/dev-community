@@ -66,7 +66,16 @@ public class UserController {
 
 	@PutMapping
 	public String update(User user) {
-		userService.save(user);
+		User existingUser = userService.findByUserId(user.getUserId());
+
+		if (existingUser == null) {
+			throw new IllegalStateException("Failed to update user. User not found");
+		}
+
+		existingUser.setUserNickname(user.getUserNickname());
+		existingUser.setPassword(user.getPassword());
+
+		userService.save(existingUser);
 		return "redirect:/users";
 	}
 
@@ -74,6 +83,34 @@ public class UserController {
 	public String updateForm(@PathVariable Long userId, Model model) {
 		model.addAttribute("user", userService.findByUserId(userId));
 		return "/users/updateForm";
+	}
+
+	@GetMapping("/{userId}/active")
+	public String active(@PathVariable Long userId) {
+		User existingUser = userService.findByUserId(userId);
+
+		if (existingUser == null) {
+			throw new IllegalStateException("User not found");
+		}
+
+		existingUser.setIsActive(true);
+		userService.save(existingUser);
+
+		return "redirect:/users";
+	}
+
+	@GetMapping("/{userId}/inactive")
+	public String inactive(@PathVariable Long userId) {
+		User existingUser = userService.findByUserId(userId);
+
+		if (existingUser == null) {
+			throw new IllegalStateException("User not found");
+		}
+
+		existingUser.setIsActive(false);
+		userService.save(existingUser);
+
+		return "redirect:/users";
 	}
 
 }

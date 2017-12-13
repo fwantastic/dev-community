@@ -8,8 +8,9 @@
 <body>
 	<div class="container">
 		<form name="createUserForm" method="POST" action="/users">
-			<input type="hidden" name="userId" value="{{userId}}" />
+			<input type="hidden" name="_method" value="PUT" />
 			{{#user}}
+			<input type="hidden" name="userId" value="{{userId}}" />
 			<div class="form-group">
 				<label for="userEmail">이메일</label>
 				<input class="form-control" type="email" id="userEmail"

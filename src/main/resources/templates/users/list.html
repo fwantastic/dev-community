@@ -1,40 +1,102 @@
-<html>
-
-<head>
-<link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"
-	rel="stylesheet">
+<!DOCTYPE html>
+<html lang="kr">
+<head>{{> /include/header}}
 </head>
+<body class="no-skin">
 
-<body>
-	<div class="container">
+	{{> /include/banner}}
 
-		<table>
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>사용자 이메일</th>
-					<th>사용자 닉네임</th>
-				</tr>
-			</thead>
-			<tbody>
-				{{#users}}
-				<tr>
-					<td>{{userId}}</td>
-					<td>{{userEmail}}</td>
-					<td>{{userNickname}}</td>
-					<td>
-						<a href="/users/{{userId}}/updateForm" class="btn btn-success"
-							role="button">수정</a>
-					</td>
-				</tr>
-				{{/users}}
-			</tbody>
+	<div class="main-container ace-save-state" id="main-container">
 
-		</table>
+		{{> /include/navigation}} {{> /include/pageStart}}
 
+		<div class="page-header">
+			<h1>회원관리</h1>
+		</div>
+		<!-- /.page-header -->
+
+		<div class="row">
+			<div class="col-xs-12">
+				<!-- PAGE CONTENT BEGINS -->
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="widget-box transparent">
+							<div class="widget-header widget-header-flat">
+								<h4 class="widget-title lighter">
+									<i class="ace-icon fa fa-star orange"></i>
+									Users
+								</h4>
+
+								<div class="widget-toolbar">
+									<a href="#" data-action="collapse">
+										<i class="ace-icon fa fa-chevron-up"></i>
+									</a>
+								</div>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main no-padding">
+									<table class="table table-bordered table-striped">
+										<thead class="thin-border-bottom">
+											<tr>
+												<th>
+													<i class="ace-icon fa fa-caret-right blue"></i>
+													#
+												</th>
+
+												<th>
+													<i class="ace-icon fa fa-caret-right blue"></i>
+													사용자 이메일
+												</th>
+
+												<th>
+													<i class="ace-icon fa fa-caret-right blue"></i>
+													사용자 닉네임
+												</th>
+
+												<th>
+													<i class="ace-icon fa fa-caret-right blue"></i>
+													사용자 상태
+												</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											{{#users}}
+											<tr>
+												<td>{{userId}}</td>
+												<td>{{userEmail}}</td>
+												<td>{{userNickname}}</td>
+												<td>{{status}}</td>
+												<td>
+													<a href="/users/{{userId}}/updateForm"
+														class="btn btn-success" role="button">수정</a>
+													<a href="/users/{{userId}}/active" class="btn btn-success"
+														role="button">Set Active</a>
+													<a href="/users/{{userId}}/inactive"
+														class="btn btn-success" role="button">Set Inactive</a>
+												</td>
+											</tr>
+											{{/users}}
+										</tbody>
+									</table>
+								</div>
+								<!-- /.widget-main -->
+							</div>
+							<!-- /.widget-body -->
+						</div>
+						<!-- /.widget-box -->
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- PAGE CONTENT ENDS -->
+		</div>
+		<!-- /.col -->
 	</div>
+	<!-- /.row -->
 
-	<script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
-	<script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+	{{> /include/pageEnd}} {{> /include/footer}}
 </body>
 </html>

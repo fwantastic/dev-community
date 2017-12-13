@@ -92,6 +92,14 @@ public class User {
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
+	
+	public String getStatus() {
+		if (isActive) {
+			return "Active";
+		}
+		
+		return "Inactive";
+	}
 
 	@Override
 	public String toString() {
