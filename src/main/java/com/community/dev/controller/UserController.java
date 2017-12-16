@@ -3,6 +3,7 @@ package com.community.dev.controller;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,19 +23,25 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("")
+	@GetMapping
 	public String list(Model model) {
+
 		model.addAttribute("users", userService.findAll());
+
 		return "/users/list";
+
 	}
 
 	@GetMapping("/login")
 	public String loginPage(User user) {
+
 		return "/users/login";
+
 	}
 
 	@PostMapping("/login")
 	public String login(String userName, String password, HttpSession httpSession) {
+
 		User user = userService.findByUserEmail(userName);
 
 		if (user == null || !StringUtils.equals(user.getPassword(), "")) {
@@ -45,72 +52,87 @@ public class UserController {
 		httpSession.setAttribute("loggedInUser", user);
 
 		return "redirect:/users";
+
 	}
 
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
+
 		session.removeAttribute("user");
+
 		return "redirect:/";
+
 	}
 
 	@GetMapping("/createForm")
 	public String createForm(User user) {
+
 		return "/users/createForm";
+
 	}
 
 	@PostMapping
 	public String create(User user) {
+
 		userService.create(user);
+
 		return "redirect:/users";
-	}
 
-	@PutMapping
-	public String update(User user) {
-		User existingUser = userService.findByUserId(user.getUserId());
-
-		if (existingUser == null) {
-			throw new IllegalStateException("Failed to update user. User not found");
-		}
-
-		existingUser.setUserNickname(user.getUserNickname());
-		existingUser.setPassword(user.getPassword());
-
-		userService.save(existingUser);
-		return "redirect:/users";
 	}
 
 	@GetMapping("/{userId}/updateForm")
 	public String updateForm(@PathVariable Long userId, Model model) {
+
 		model.addAttribute("user", userService.findByUserId(userId));
+
 		return "/users/updateForm";
+
+	}
+
+	@PutMapping
+	public String update(User user) {
+
+		User existingUser = userService.findByUserId(user.getUserId());
+
+		Validate.notNull(existingUser, "User not found");
+
+		existingUser.setUserNickname(user.getUserNickname());
+		existingUser.setPassword(user.getPassword());
+		existingUser.setIsActive(user.getIsActive());
+
+		userService.save(existingUser);
+
+		return "redirect:/users";
+
 	}
 
 	@GetMapping("/{userId}/active")
 	public String active(@PathVariable Long userId) {
-		User existingUser = userService.findByUserId(userId);
 
-		if (existingUser == null) {
-			throw new IllegalStateException("User not found");
-		}
+		makeUserActive(userId, true);
 
-		existingUser.setIsActive(true);
-		userService.save(existingUser);
+		return "redirect:/users/{userId}/updateForm";
 
-		return "redirect:/users";
 	}
 
 	@GetMapping("/{userId}/inactive")
 	public String inactive(@PathVariable Long userId) {
+
+		makeUserActive(userId, false);
+
+		return "redirect:/users/{userId}/updateForm";
+
+	}
+
+	private void makeUserActive(Long userId, boolean activeState) {
+
 		User existingUser = userService.findByUserId(userId);
 
-		if (existingUser == null) {
-			throw new IllegalStateException("User not found");
-		}
+		Validate.notNull(existingUser, "User not found");
 
-		existingUser.setIsActive(false);
+		existingUser.setIsActive(activeState);
 		userService.save(existingUser);
 
-		return "redirect:/users";
 	}
 
 }
