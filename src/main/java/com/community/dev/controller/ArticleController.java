@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.community.dev.persistence.Article;
 import com.community.dev.service.ArticleService;
 
-@Controller
-@RequestMapping("/articles")
+//@Controller
+//@RequestMapping("/articles")
 public class ArticleController {
 
 	@Autowired
