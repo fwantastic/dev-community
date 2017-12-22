@@ -1,9 +1,8 @@
 package com.community.dev.controller;
 
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +19,8 @@ import com.community.dev.service.UserService;
 @RequestMapping("/users")
 public class UserController {
 
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
 	@Autowired
 	private UserService userService;
 
@@ -33,34 +34,9 @@ public class UserController {
 	}
 
 	@GetMapping("/login")
-	public String loginPage(User user) {
+	public String loginPage(User user, Model model) {
 
 		return "/users/login";
-
-	}
-
-	@PostMapping("/login")
-	public String login(String userName, String password, HttpSession httpSession) {
-
-		User user = userService.findByUserEmail(userName);
-
-		if (user == null || !StringUtils.equals(user.getPassword(), "")) {
-			System.out.println("User name or password is wrong");
-			return "redirect:/users/login";
-		}
-
-		httpSession.setAttribute("loggedInUser", user);
-
-		return "redirect:/users";
-
-	}
-
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-
-		session.removeAttribute("user");
-
-		return "redirect:/";
 
 	}
 

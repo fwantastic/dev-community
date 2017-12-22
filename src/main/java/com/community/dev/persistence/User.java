@@ -1,16 +1,27 @@
 package com.community.dev.persistence;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "USER")
-public class User {
+public class User implements Serializable {
+
+	private static final long serialVersionUID = -3451900775639371540L;
 
 	@Id
 	@GeneratedValue
@@ -32,6 +43,11 @@ public class User {
 
 	@Column(name = "ACTIVITY_POINT")
 	private Long activityPoint;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "ROLE_ID") })
+	private Set<Role> roles = new HashSet<>();
 
 	@Column(name = "IS_ACTIVE")
 	@Type(type = "yes_no")
@@ -85,19 +101,27 @@ public class User {
 		this.activityPoint = activityPoint;
 	}
 
-	public boolean getIsActive() {
+	public Boolean getIsActive() {
 		return isActive;
 	}
 
-	public void setIsActive(boolean isActive) {
+	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
-	
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	public String getStatus() {
 		if (isActive) {
 			return "Active";
 		}
-		
+
 		return "Inactive";
 	}
 
