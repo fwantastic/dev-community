@@ -28,16 +28,48 @@
 					</div>
 					<!-- /input-group -->
 				</li>
+
+				<!-- logged in user -->
+				{{^loggedInUser}}
 				<li>
-					<a href="index.html">
+					<a href="/users/login">
 						<i class="fa fa-dashboard fa-fw"></i>
-						Dashboard
+						로그인
 					</a>
 				</li>
 				<li>
-					<a href="tables.html">
+					<a href="/users/createForm">
+						<i class="fa fa-dashboard fa-fw"></i>
+						회원가입
+					</a>
+				</li>
+				{{/loggedInUser}}
+
+				<!-- non logged in user -->
+				{{#loggedInUser}}
+				<li>
+					<a href="/users/logout">
+						<i class="fa fa-dashboard fa-fw"></i>
+						로그아웃
+					</a>
+				</li>
+				<li>
+					<a href="/users/update">
+						<i class="fa fa-dashboard fa-fw"></i>
+						정보 수정
+					</a>
+				</li>
+				{{/loggedInUser}}
+				<li>
+					<a href="/articles">
+						<i class="fa fa-dashboard fa-fw"></i>
+						자바
+					</a>
+				</li>
+				<li>
+					<a href="/category/review/articles">
 						<i class="fa fa-table fa-fw"></i>
-						Tables
+						사용기/후기/팁
 					</a>
 				</li>
 			</ul>
