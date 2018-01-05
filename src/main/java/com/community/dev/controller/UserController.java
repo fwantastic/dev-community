@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.community.dev.persistence.User;
 import com.community.dev.service.UserService;
+import com.community.dev.util.LoginUtility;
 
 @Controller
 @RequestMapping("/users")
@@ -53,6 +54,20 @@ public class UserController {
 		userService.create(user);
 
 		return "redirect:/users";
+
+	}
+
+	@GetMapping("/update")
+	public String update() {
+
+		User user = userService.findByUserEmail(LoginUtility.getLoggedInUserEmail());
+
+		if (user == null) {
+			logger.info("user not found: " + LoginUtility.getLoggedInUserEmail());
+			return "/users/login";
+		}
+
+		return "redirect:/users/" + user.getUserId() + "/updateForm";
 
 	}
 
