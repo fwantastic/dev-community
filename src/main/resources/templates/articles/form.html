@@ -1,0 +1,63 @@
+{{> /include/header}}
+
+<body>
+	<div id="wrapper">
+
+		{{> /include/navigation}}
+
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header"></h1>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+
+			<!-- /.row -->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+
+						<div class="panel-heading clearfix">YOYOYO</div>
+
+						<div class="panel-body clearfix">
+							{{#article}}
+							<form name="createUserForm" method="POST" action="/articles">
+
+								<label for="userEmail">{{title}}</label>
+								<hr />
+
+								<div id="contents"></div>
+
+								<div class="clearfix"></div>
+							</form>
+							{{/article}}
+						</div>
+					</div>
+
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel-default -->
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+	</div>
+	<!-- /#wrapper -->
+
+	{{> /include/footer}}
+
+	<script>
+		var text = '{{#article}}{{convertContents}}{{/article}}', target = document
+				.getElementById('contents'), converter = new showdown.Converter(), html = converter
+				.makeHtml(text);
+
+		target.innerHTML = html;
+	</script>
+
+	<script type="text/javascript">
+		$('.multipleSelect').fastselect();
+	</script>
