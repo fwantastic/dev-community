@@ -44,13 +44,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findByUserId(Long userId) {
-		// TODO Auto-generated method stub
 		return userRepository.findByUserId(userId);
 	}
 
 	@Override
 	public User findByUserEmail(String userEmail) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.findByUserEmail(userEmail);
 	}
 }
