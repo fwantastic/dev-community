@@ -1,68 +1,65 @@
-<!DOCTYPE html>
-<html lang="kr">
-<head>{{> /include/header}}
-</head>
-<body class="no-skin">
+{{> /include/header}}
 
-	{{> /include/banner}}
+<body>
+	<div id="wrapper">
 
-	<div class="main-container ace-save-state" id="main-container">
+		{{> /include/navigation}}
 
-		{{> /include/navigation}} {{> /include/pageStart}}
-
-		<div class="page-header">
-			<h1>회원가입</h1>
-		</div>
-		<!-- /.page-header -->
-
-		<div class="row">
-			<div class="col-xs-12">
-				<!-- PAGE CONTENT BEGINS -->
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="widget-box transparent">
-							<div class="widget-body">
-								<div class="widget-main no-padding">
-									<form name="createUserForm" method="POST" action="/users">
-										<div class="form-group">
-											<label for="userEmail">사용자 이메일</label>
-											<input class="form-control" type="email" id="userEmail"
-												name="userEmail" placeholder="Email">
-										</div>
-
-										<div class="form-group">
-											<label for="userNickname">사용자 닉네임</label>
-											<input class="form-control" id="userNickname"
-												name="userNickname" placeholder="User Nickname">
-										</div>
-
-										<div class="form-group">
-											<label for="password">비밀번호</label>
-											<input class="form-control" type="password" id="password"
-												name="password" placeholder="Password">
-										</div>
-
-										<button type="submit"
-											class="btn btn-success clearfix pull-right">회원가입</button>
-										<div class="clearfix"></div>
-									</form>
-								</div>
-								<!-- /.widget-main -->
-							</div>
-							<!-- /.widget-body -->
-						</div>
-						<!-- /.widget-box -->
-					</div>
-					<!-- /.col -->
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-10">
+					<h1 class="page-header"></h1>
 				</div>
-				<!-- /.row -->
+				<!-- /.col-lg-12 -->
 			</div>
-			<!-- PAGE CONTENT ENDS -->
+
+			<!-- /.row -->
+			<div class="row">
+				<div class="col-lg-10">
+					<div class="panel panel-default">
+						<div class="panel-heading">회원가입</div>
+
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+
+							<form name="createUserForm" method="POST" action="/users">
+
+								<input type="hidden" name="{{_csrf.parameterName}}"
+									value="{{_csrf.token}}" />
+
+								<div class="form-group">
+									<label for="userEmail">사용자 이메일</label>
+									<input class="form-control" type="email" id="userEmail"
+										name="userEmail" placeholder="Email">
+								</div>
+
+								<div class="form-group">
+									<label for="userNickname">사용자 닉네임</label>
+									<input class="form-control" id="userNickname"
+										name="userNickname" placeholder="User Nickname">
+								</div>
+
+								<div class="form-group">
+									<label for="password">비밀번호</label>
+									<input class="form-control" type="password" id="password"
+										name="password" placeholder="Password">
+								</div>
+
+								<button type="submit"
+									class="btn btn-success clearfix pull-right">회원가입</button>
+								<div class="clearfix"></div>
+							</form>
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<!-- /.row -->
 		</div>
-		<!-- /.col -->
+		<!-- /#page-wrapper -->
 	</div>
-	<!-- /.row -->
+	<!-- /#wrapper -->
 
 	{{> /include/footer}}
-</body>
-</html>
