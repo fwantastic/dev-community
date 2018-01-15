@@ -3,12 +3,11 @@
 <body>
 	<div id="wrapper">
 
-		{{> /include/navigation}}
-
+		{{> /include/navigation}} {{#article}}
 		<div id="page-wrapper">
 			<div class="row">
-				<div class="col-lg-12">
-					<br />
+				<div class="col-lg-10">
+					<h1 class="page-header">{{title}}</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -18,11 +17,11 @@
 				<div class="col-lg-10">
 					<div class="panel panel-default">
 
-						{{#article}}
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-8 text-left">
-									<label class="btn">{{author.userNickname}}</label>
+									<label class="btn">By {{author.userNickname}} | Last
+										updated {{updateDatetimeString}}</label>
 								</div>
 
 								{{#allowEdit}}
@@ -38,30 +37,22 @@
 						<div class="panel-body">
 							<div class="col-lg-12">
 								<form name="createUserForm" method="POST" action="/articles">
-
-									<h2>{{title}}</h2>
-									<hr />
-
 									<div id="contents"></div>
 
 									<div class="clearfix"></div>
 								</form>
 							</div>
 						</div>
-						{{/article}}
-
+						<!-- /.panel-body -->
 					</div>
-
+					<!-- /.panel-default -->
 				</div>
-				<!-- /.panel-body -->
+				<!-- /.col-lg-12 -->
 			</div>
-			<!-- /.panel-default -->
+			<!-- /.row -->
 		</div>
-		<!-- /.col-lg-12 -->
-	</div>
-	<!-- /.row -->
-	</div>
-	<!-- /#page-wrapper -->
+		<!-- /#page-wrapper -->
+		{{/article}}
 	</div>
 	<!-- /#wrapper -->
 

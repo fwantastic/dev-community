@@ -1,14 +1,23 @@
 package com.community.dev.persistence;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -17,7 +26,9 @@ import com.community.dev.util.DateFormatUtility;
 
 @Entity
 @Table(name = "ARTICLE")
-public class Article {
+public class Article implements Serializable {
+
+	private static final long serialVersionUID = 600730807324799624L;
 
 	@Id
 	@GeneratedValue
@@ -28,8 +39,17 @@ public class Article {
 	// @JoinColumn(name = "CATEGORY_NAME")
 	// private Category category;
 
-	// @Column
-	// private Set<Tag> tags = new HashSet<>();
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "ARTICLE_TAG", joinColumns = {
+			@JoinColumn(name = "ARTICLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "TAG_ID", nullable = false, updatable = false) })
+	private Set<Tag> tags = new HashSet<>();
+
+	@Transient
+	private String[] tagsArray;
+
+	@Transient
+	private List<Long> tagIdList;
 
 	@ManyToOne
 	@JoinColumn(name = "AUTHOR_USER_ID", referencedColumnName = "USER_ID")
@@ -41,10 +61,10 @@ public class Article {
 	// private User lastEditedBy;
 
 	@Column(name = "CREATE_DTM")
-	private Date createDatetime;
+	private LocalDateTime createDatetime;
 
 	@Column(name = "UPDATE_DTM")
-	private Date updateDatetime;
+	private LocalDateTime updateDatetime;
 
 	@Column(name = "TITLE")
 	private String title;
@@ -69,6 +89,38 @@ public class Article {
 		this.articleId = articleId;
 	}
 
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public String[] getTagsArray() {
+		return tagsArray;
+	}
+
+	public void setTagsArray(String[] tagsArray) {
+		this.tagsArray = tagsArray;
+
+		tagIdList = Stream.of(tagsArray).map(Long::parseLong).collect(Collectors.toList());
+
+		// for (String tagId : tagsArray) {
+		// Tag tag = new Tag();
+		// tag.setTagId(Long.valueOf(tagId));
+		// tags.add(tag);
+		// }
+	}
+
+	public List<Long> getTagIdList() {
+		return tagIdList;
+	}
+
+	public void setTagIdList(List<Long> tagIdList) {
+		this.tagIdList = tagIdList;
+	}
+
 	public User getAuthor() {
 		return author;
 	}
@@ -78,22 +130,26 @@ public class Article {
 	}
 
 	public String getCreateDatetimeString() {
-		return DateFormatUtility.parseSimpleDate(createDatetime);
+		return createDatetime.format(DateFormatUtility.DATE_TIME_FORMAT);
 	}
 
-	public Date getCreateDatetime() {
+	public LocalDateTime getCreateDatetime() {
 		return createDatetime;
 	}
 
-	public void setCreateDatetime(Date createDatetime) {
+	public void setCreateDatetime(LocalDateTime createDatetime) {
 		this.createDatetime = createDatetime;
 	}
 
-	public Date getUpdateDatetime() {
+	public String getUpdateDatetimeString() {
+		return updateDatetime.format(DateFormatUtility.DATE_TIME_FORMAT);
+	}
+
+	public LocalDateTime getUpdateDatetime() {
 		return updateDatetime;
 	}
 
-	public void setUpdateDatetime(Date updateDatetime) {
+	public void setUpdateDatetime(LocalDateTime updateDatetime) {
 		this.updateDatetime = updateDatetime;
 	}
 
@@ -143,9 +199,10 @@ public class Article {
 
 	@Override
 	public String toString() {
-		return "Article [articleId=" + articleId + ", createDatetime=" + createDatetime + ", updateDatetime="
-				+ updateDatetime + ", title=" + title + ", viewCount=" + viewCount + ", likeCount=" + likeCount
-				+ ", contents=" + contents + ", isActive=" + isActive + "]";
+		return "Article [articleId=" + articleId + ", tags=" + tags + ", tagsArray=" + Arrays.toString(tagsArray)
+				+ ", author=" + author + ", createDatetime=" + createDatetime + ", updateDatetime=" + updateDatetime
+				+ ", title=" + title + ", viewCount=" + viewCount + ", likeCount=" + likeCount + ", contents="
+				+ contents + ", isActive=" + isActive + "]";
 	}
 
 }
