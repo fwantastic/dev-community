@@ -14,7 +14,7 @@ public interface TagService {
 
 	Article save(Tag tag);
 
-	Page<Tag> findAll(Pageable pageable);
+	List<Tag> findAllByOrderByTagName();
 
 	Tag findByTagId(Long tagId);
 
