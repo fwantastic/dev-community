@@ -1,80 +1,27 @@
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-static-top" role="navigation"
-	style="margin-bottom: 0">
-	<div class="navbar-header">
-		<button type="button" class="navbar-toggle" data-toggle="collapse"
-			data-target=".navbar-collapse">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+	<div class="container">
 		<a class="navbar-brand" href="/">Fwantastic</a>
-	</div>
-	<!-- /.navbar-header -->
-
-	<div class="navbar-default sidebar" role="navigation">
-		<!-- having collapse at the end will default the menu to not display on mobile -->
-		<div class="sidebar-nav navbar-collapse collapse">
-			<ul class="nav" id="side-menu">
-				<li class="sidebar-search">
-					<div class="input-group custom-search-form">
-						<input type="text" class="form-control" placeholder="Search...">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">
-								<i class="fa fa-search"></i>
-							</button>
-						</span>
-					</div>
-					<!-- /input-group -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarResponsive" aria-controls="navbarResponsive"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="/articles/tags/1"> 자바 </a>
 				</li>
-
-				<!-- logged in user -->
-				{{^loggedInUser}}
-				<li>
-					<a href="/users/login">
-						<i class="fa fa-dashboard fa-fw"></i>
-						로그인
-					</a>
+				<li class="nav-item active">
+					<a class="nav-link" href="/articles/tags/2"> 스프링 부트 </a>
 				</li>
-				<li>
-					<a href="/users/createForm">
-						<i class="fa fa-dashboard fa-fw"></i>
-						회원가입
-					</a>
-				</li>
-				{{/loggedInUser}}
-
-				<!-- non logged in user -->
-				{{#loggedInUser}}
-				<li>
-					<a href="/users/logout">
-						<i class="fa fa-dashboard fa-fw"></i>
-						로그아웃
-					</a>
-				</li>
-				<li>
-					<a href="/users/update">
-						<i class="fa fa-dashboard fa-fw"></i>
-						정보 수정
-					</a>
-				</li>
-				{{/loggedInUser}}
-				<li>
-					<a href="/articles">
-						<i class="fa fa-dashboard fa-fw"></i>
-						자바
-					</a>
-				</li>
-				<li>
-					<a href="/category/review/articles">
-						<i class="fa fa-table fa-fw"></i>
-						사용기/후기/팁
-					</a>
+				<!-- <li class="nav-item active">
+					<a class="nav-link" href="/articles/tags/3"> 사용기/후기/팁 </a>
+				</li> -->
+				<li class="nav-item active">
+					<a class="nav-link" href="/contactus"> Contact Us </a>
 				</li>
 			</ul>
 		</div>
-		<!-- /.sidebar-collapse -->
 	</div>
-	<!-- /.navbar-static-side -->
 </nav>
