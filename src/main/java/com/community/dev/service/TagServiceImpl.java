@@ -43,6 +43,11 @@ public class TagServiceImpl implements TagService {
 
 	@Override
 	public List<Tag> findByTagIdIn(List<Long> tagIdList) {
+
+		if (tagIdList == null || tagIdList.size() <= 0) {
+			return new ArrayList<>();
+		}
+
 		List<Tag> tags = tagRepository.findByTagIdIn(tagIdList);
 
 		if (tags == null) {

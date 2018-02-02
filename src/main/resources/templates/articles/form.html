@@ -1,71 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
 {{> /include/header}}
 
 <body>
-	<div id="wrapper">
 
-		{{> /include/navigation}} {{#article}}
-		<div id="page-wrapper">
-			<div class="row">
-				<div class="col-lg-10">
-					<h1 class="page-header">{{title}}</h1>
-				</div>
-				<!-- /.col-lg-12 -->
+	{{> /include/navigation}}
+
+	<!-- Page Content -->
+	<div class="container">
+
+		<div class="row">
+
+			{{#article}}
+			<!-- Post Content Column -->
+			<div class="col-lg-8 wordwrap">
+
+				<!-- Title -->
+				<h1 class="mt-4">
+					{{title}} {{#allowEdit}}
+					<span class="float-right">
+						<a href="/articles/{{articleId}}/updateForm"
+							class="btn btn-success clearfix">수정</a>
+					</span>
+					{{/allowEdit}}
+				</h1>
+
+				<hr>
+
+				<h4>
+					{{#tags}}
+					<span class="badge badge-primary">{{tagName}}</span>
+					{{/tags}}
+				</h4>
+
+				<hr>
+
+				<p>by {{author.userNickname}} | Last Updated:
+					{{updateDatetimeString}}</p>
+
+				<hr>
+
+				<div id="contents"></div>
+
 			</div>
+			{{/article}}
+			<!--  -->
+			{{> /include/sidewidgets}}
 
-			<!-- /.row -->
-			<div class="row">
-				<div class="col-lg-10">
-					<div class="panel panel-default">
-
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-8 text-left">
-									<label class="btn">By {{author.userNickname}} | Last
-										updated {{updateDatetimeString}}</label>
-								</div>
-
-								{{#allowEdit}}
-								<div class="col-xs-4 text-right">
-									<a href="/articles/createForm"
-										class="btn btn-success clearfix float-right">수정</a>
-								</div>
-								{{/allowEdit}}
-
-							</div>
-						</div>
-
-						<div class="panel-body">
-							<div class="col-lg-12">
-								<form name="createUserForm" method="POST" action="/articles">
-									<div id="contents"></div>
-
-									<div class="clearfix"></div>
-								</form>
-							</div>
-						</div>
-						<!-- /.panel-body -->
-					</div>
-					<!-- /.panel-default -->
-				</div>
-				<!-- /.col-lg-12 -->
-			</div>
-			<!-- /.row -->
 		</div>
-		<!-- /#page-wrapper -->
-		{{/article}}
+		<!-- /.row -->
+
 	</div>
-	<!-- /#wrapper -->
+	<!-- /.container -->
 
-	{{> /include/footer}}
+</body>
 
-	<script>
-		var text = '{{#article}}{{convertContents}}{{/article}}', target = document
-				.getElementById('contents'), converter = new showdown.Converter(), html = converter
-				.makeHtml(text);
+{{> /include/footer}}
 
-		target.innerHTML = html;
-	</script>
+<script>
+	var text = '{{#article}}{{convertContents}}{{/article}}', target = document
+			.getElementById('contents'), converter = new showdown.Converter(), html = converter
+			.makeHtml(text);
 
-	<script type="text/javascript">
-		$('.multipleSelect').fastselect();
-	</script>
+	target.innerHTML = html;
+</script>
+
+<script type="text/javascript">
+	$('.multipleSelect').fastselect();
+</script>
+
+</html>
+
+
+
+

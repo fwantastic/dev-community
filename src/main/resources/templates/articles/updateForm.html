@@ -1,60 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
 {{> /include/header}}
 
 <body>
-	<div id="wrapper">
 
-		{{> /include/navigation}}
+	{{> /include/navigation}}
 
-		<div id="page-wrapper">
-			<div class="row">
-				<div class="col-lg-10">
-					<h1 class="page-header">수정</h1>
-				</div>
-				<!-- /.col-lg-12 -->
-			</div>
+	<!-- Page Content -->
+	<div class="container">
 
-			<!-- /.row -->
-			<div class="row">
-				<div class="col-lg-10">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<form name="createUserForm" method="POST" action="/articles">
-								<input type="hidden" name="{{_csrf.parameterName}}"
-									value="{{_csrf.token}}" />
+		<div class="row">
 
-								<div class="form-group">
-									<label for="userEmail">제목</label>
-									<input class="form-control" id="title" name="title"
-										placeholder="제목">
-								</div>
+			<!-- Post Content Column -->
+			<div class="col-lg-8 wordwrap">
 
-								<textarea name="contents" id="contents"></textarea>
+				<!-- Title -->
+				<h1 class="mt-4">수정</h1>
 
-								<button type="submit"
-									class="btn btn-success clearfix pull-right">저장</button>
-								<div class="clearfix"></div>
-							</form>
-						</div>
-						<!-- /.panel-body -->
+				<hr>
+
+				{{#article}}
+				<form name="createUserForm" method="POST" action="/articles">
+					<input type="hidden" name="_method" value="put" />
+					<input type="hidden" name="{{_csrf.parameterName}}"
+						value="{{_csrf.token}}" />
+
+					<input type="hidden" name="articleId" value="{{articleId}}" />
+
+					<div class="form-group">
+						<label for="userEmail">제목</label>
+						<input class="form-control" id="title" name="title"
+							placeholder="제목" value="{{title}}">
 					</div>
-					<!-- /.panel-default -->
-				</div>
-				<!-- /.col-lg-12 -->
+
+					<div class="form-group">
+						<label for="userEmail">Tags</label>
+
+						<div class="">
+							<select id="tagsArray" name="tagsArray" class="multipleSelect"
+								multiple name="tagsArray">
+								{{#allTags}}
+								<option value="{{tagId}}">{{tagName}}</option>
+								{{/allTags}}
+							</select>
+						</div>
+					</div>
+
+					<textarea name="contents" id="contents">{{contents}}</textarea>
+
+					<button type="submit" class="btn btn-success clearfix float-right">저장</button>
+					<div class="clearfix"></div>
+
+					<hr>
+				</form>
+				{{/article}}
+
 			</div>
-			<!-- /.row -->
+
+			{{> /include/sidewidgets}}
+
 		</div>
-		<!-- /#page-wrapper -->
+		<!-- /.row -->
+
 	</div>
-	<!-- /#wrapper -->
+	<!-- /.container -->
 
-	{{> /include/footer}}
+</body>
 
-	<script>
-		var simplemde = new SimpleMDE({
-			element : document.getElementById("contents")
-		});
-	</script>
+{{> /include/footer}}
 
-	<script type="text/javascript">
-		$('.multipleSelect').fastselect();
-	</script>
+<script>
+	var simplemde = new SimpleMDE({
+		element : document.getElementById("contents"),
+		spellChecker : false,
+	});
+</script>
+
+<script type="text/javascript">
+	var inputtxt = document.getElementById('tagsArray');
+
+		{{#article}}
+			{{#tags}}
+				$("#tagsArray option[value=" + {{tagId}} + "]").prop("selected", "selected");
+			{{/tags}}
+		{{/article}}
+	
+	$('.multipleSelect').fastselect();
+</script>
+
+</html>

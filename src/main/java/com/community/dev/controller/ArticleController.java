@@ -1,11 +1,10 @@
 package com.community.dev.controller;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -39,18 +38,10 @@ public class ArticleController {
 	@GetMapping
 	public String list(Model model,
 			@PageableDefault(sort = { "articleId" }, direction = Direction.DESC, size = 20) Pageable pageable) {
-		// Page<Article> articles = articleService.findAll(pageable);
-		// articles.getcon
-		// model.addAttribute("articles", articles.getContent());
-		// // articles.get
-		// model.addAttribute("currentPageNumber", articles.getNumber());
-		// model.addAttribute("totalPages", articles.getTotalPages());
-		// model.addAttribute("pageSize", articles.getSize());
 
 		PageWrapper<Article> page = new PageWrapper<Article>(articleService.findAll(pageable), "/articles");
 		model.addAttribute("page", page);
 
-		// pageable.page
 		return "/articles/list";
 	}
 
@@ -80,13 +71,36 @@ public class ArticleController {
 
 	@PutMapping
 	public String update(Article article) {
-		articleService.save(article);
+		User user = userService.findByUserEmail(LoginUtility.getLoggedInUserEmail());
+
+		if (user == null) {
+			logger.info("user not found: " + LoginUtility.getLoggedInUserEmail());
+			return "redirect:/users/login";
+		}
+
+		Article oldArticle = articleService.findByArticleId(article.getArticleId());
+
+		if (oldArticle == null) {
+			logger.info("articleId=[{}] not found.", article.getArticleId());
+			return "redirect:/articles";
+		} else if (oldArticle.getAuthor().getUserId().longValue() != user.getUserId().longValue()) {
+			logger.info("userId=[{}] cannot modify the articleId=[{}].", user.getUserId(), article.getArticleId());
+			return "redirect:/articles";
+		}
+
+		oldArticle.setTitle(article.getTitle());
+		oldArticle.setContents(article.getContents());
+		oldArticle.setTagsArray(article.getTagsArray());
+
+		oldArticle.setUpdateUser(user);
+
+		articleService.save(oldArticle);
 		return "redirect:/articles";
 	}
 
 	@GetMapping("/{articleId}/updateForm")
 	public String updateForm(@PathVariable Long articleId, Model model) {
-		model.addAttribute("user", articleService.findByArticleId(articleId));
+		model.addAttribute("article", articleService.findByArticleId(articleId));
 		return "/articles/updateForm";
 	}
 
@@ -100,6 +114,17 @@ public class ArticleController {
 		}
 
 		return "/articles/form";
+	}
+
+	@GetMapping("tags/{tagIds}")
+	public String listByTags(Model model, @PathVariable List<Long> tagIds,
+			@PageableDefault(sort = { "articleId" }, direction = Direction.DESC, size = 20) Pageable pageable) {
+
+		PageWrapper<Article> page = new PageWrapper<Article>(articleService.findByTags_TagIdIn(tagIds, pageable),
+				"/articles");
+		model.addAttribute("page", page);
+
+		return "/articles/list";
 	}
 
 }

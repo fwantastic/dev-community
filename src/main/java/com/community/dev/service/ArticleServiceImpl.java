@@ -38,8 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 		article.setUpdateDatetime(now);
 
-		articleRepository.save(article);
-		return null;
+		return articleRepository.save(article);
 	}
 
 	// @Override
@@ -56,6 +55,11 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public Article findByArticleId(Long articleId) {
 		return articleRepository.findOne(articleId);
+	}
+
+	@Override
+	public Page<Article> findByTags_TagIdIn(List<Long> tagIdList, Pageable pageable) {
+		return articleRepository.findDistinctByTags_TagIdIn(tagIdList, pageable);
 	}
 
 }

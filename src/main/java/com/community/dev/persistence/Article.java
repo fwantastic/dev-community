@@ -2,6 +2,7 @@ package com.community.dev.persistence;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -19,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -35,14 +37,11 @@ public class Article implements Serializable {
 	@Column(name = "ARTICLE_ID")
 	private Long articleId;
 
-	// @ManyToOne
-	// @JoinColumn(name = "CATEGORY_NAME")
-	// private Category category;
-
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "ARTICLE_TAG", joinColumns = {
 			@JoinColumn(name = "ARTICLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "TAG_ID", nullable = false, updatable = false) })
+	@OrderBy("tagName ASC")
 	private Set<Tag> tags = new HashSet<>();
 
 	@Transient
@@ -55,10 +54,9 @@ public class Article implements Serializable {
 	@JoinColumn(name = "AUTHOR_USER_ID", referencedColumnName = "USER_ID")
 	private User author;
 
-	// @ManyToOne
-	// @JoinColumn(name = "LAST_UPDATE_USER_ID", referencedColumnName =
-	// "USER_ID")
-	// private User lastEditedBy;
+	@ManyToOne
+	@JoinColumn(name = "UPDATE_USER_ID", referencedColumnName = "USER_ID")
+	private User updateUser;
 
 	@Column(name = "CREATE_DTM")
 	private LocalDateTime createDatetime;
@@ -104,13 +102,11 @@ public class Article implements Serializable {
 	public void setTagsArray(String[] tagsArray) {
 		this.tagsArray = tagsArray;
 
-		tagIdList = Stream.of(tagsArray).map(Long::parseLong).collect(Collectors.toList());
-
-		// for (String tagId : tagsArray) {
-		// Tag tag = new Tag();
-		// tag.setTagId(Long.valueOf(tagId));
-		// tags.add(tag);
-		// }
+		if (tagsArray == null) {
+			tagIdList = new ArrayList<>();
+		} else {
+			tagIdList = Stream.of(tagsArray).map(Long::parseLong).collect(Collectors.toList());
+		}
 	}
 
 	public List<Long> getTagIdList() {
@@ -127,6 +123,14 @@ public class Article implements Serializable {
 
 	public void setAuthor(User author) {
 		this.author = author;
+	}
+
+	public User getUpdateUser() {
+		return updateUser;
+	}
+
+	public void setUpdateUser(User updateUser) {
+		this.updateUser = updateUser;
 	}
 
 	public String getCreateDatetimeString() {
@@ -186,7 +190,9 @@ public class Article implements Serializable {
 	}
 
 	public String convertContents() {
-		return contents.replaceAll("(\\r|\\n|\\r\\n)+", "\\\\n");
+		// replace \r\n to \n with 2 spaces in front in order to render it as
+		// a new line correctly
+		return contents.replaceAll("(\\r|\\n|\\r\\n)+", "  \\\\n");
 	}
 
 	public Boolean getIsActive() {

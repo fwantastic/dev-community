@@ -1,108 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
 {{> /include/header}}
 
 <body>
-	<div id="wrapper">
 
-		{{> /include/navigation}}
+	{{> /include/navigation}}
 
-		<div id="page-wrapper">
-			<div class="row">
-				<div class="col-lg-10">
-					<h1 class="page-header"></h1>
-				</div>
-				<!-- /.col-lg-12 -->
+	<!-- Page Content -->
+	<div class="container">
+
+		<div class="row">
+
+			<!-- Post Content Column -->
+			<div class="col-lg-8 wordwrap">
+
+				<!-- Title -->
+				<h3 class="mt-4">
+					Articles {{#loggedInUser}}
+					<span class="float-right">
+						<a href="/articles/createForm" class="btn btn-success clearfix">글쓰기</a>
+					</span>
+					{{/loggedInUser}}
+				</h3>
+
+				<hr>
+
+				{{#page}} {{#content}}
+
+				<h5>
+					<a href="{{url}}/{{articleId}}" class="text-dark">{{title}}</a>
+				</h5>
+
+				{{#tags}}
+				<span class="badge badge-primary">{{tagName}}</span>
+				{{/tags}}
+
+				<p>by {{author.userNickname}} | Last Updated:
+					{{updateDatetimeString}}</p>
+
+				<hr>
+
+				{{/content}}
+				<!--  -->
+				{{> /include/pagination}}
+				<!--  -->
+				{{/page}}
+
 			</div>
 
-			<!-- /.row -->
-			{{#page}}
-			<div class="row">
-				<div class="col-lg-10">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-8 text-left">
-									<span class="btn">게시판</span>
-								</div>
-								<div class="col-xs-4 text-right">
-									<a href="/articles/createForm"
-										class="btn btn-success clearfix float-right">글쓰기</a>
-								</div>
-							</div>
-						</div>
+			{{> /include/sidewidgets}}
 
-						<!-- /.panel-heading -->
-						<div class="panel-body">
-							<ul class="list-group col-lg-12">
-								{{#content}}
-								<li class="list-group-item">
-									<div class="col-sm-1">{{articleId}}</div>
-									<div class="col-sm-6">
-										<a href="/articles/{{articleId}}">{{title}}</a>
-									</div>
-									<div class="col-sm-1">{{author.userNickname}}</div>
-									<div class="col-sm-2">{{createDatetimeString}}</div>
-									<div class="col-sm-2">{{#tags}} {{tagName}} {{/tags}}</div>
-									<div class="clearfix"></div>
-								</li>
-								{{/content}}
-							</ul>
-							<!-- /.panel-body -->
-						</div>
-						<!-- /.panel -->
-						<div class="text-center">
-
-							<nav aria-label="Page navigation">
-								<ul class="pagination">
-									{{#hasPrevious}}
-									<li class="page-item">
-										<a href="{{url}}?page={{previousNumber}}&size={{size}}"
-											aria-label="Previous">
-											<span aria-hidden="true">Previous</span>
-										</a>
-									</li>
-									{{/hasPrevious}}
-									<!--  -->
-									{{^hasPrevious}}
-									<li class="page-item disabled">
-										<span aria-hidden="true">Previous</span>
-									</li>
-									{{/hasPrevious}}
-									<!--  -->
-									{{#pageItems}}
-									<li class="page-item {{#current}}active{{/current}}">
-										<a class="page-link"
-											href="{{url}}?page={{actualNumber}}&size={{size}}">{{number}}</a>
-									</li>
-									{{/pageItems}}
-									<!--  -->
-									{{#hasNext}}
-									<li class="page-item">
-										<a href="{{url}}?page={{nextNumber}}&size={{size}}"
-											aria-label="Next">
-											<span aria-hidden="true">Next</span>
-										</a>
-									</li>
-									{{/hasNext}}
-									<!--  -->
-									{{^hasNext}}
-									<li class="page-item disabled">
-										<span aria-hidden="true">Next</span>
-									</li>
-									{{/hasNext}}
-								</ul>
-							</nav>
-
-
-						</div>
-					</div>
-				</div>
-				<!-- /.col-lg-12 -->
-			</div>
-			{{/page}}
-			<!-- /.row -->
 		</div>
-		<!-- /#page-wrapper -->
-	</div>
-	<!-- /#wrapper -->
+		<!-- /.row -->
 
-	{{> /include/footer}}
+	</div>
+	<!-- /.container -->
+
+</body>
+
+{{> /include/footer}}
+
+</html>
