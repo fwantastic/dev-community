@@ -1,66 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
 {{> /include/header}}
 
 <body>
-	<div id="wrapper">
 
-		{{> /include/navigation}}
+	{{> /include/navigation}}
 
-		<div id="page-wrapper">
-			<div class="row">
-				<div class="col-lg-10">
-					<h1 class="page-header">로그인</h1>
-				</div>
-				<!-- /.col-lg-12 -->
-			</div>
+	<!-- Page Content -->
+	<div class="container">
 
+		<div class="row">
 
-			<!-- /.row -->
-			<div class="row">
-				<div class="col-lg-10">
-					<div class="panel panel-default">
+			<!-- Post Content Column -->
+			<div class="col-lg-8 wordwrap">
 
-						<!-- /.panel-heading -->
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-lg-12">
-									<form method="POST" action="/users/login">
+				<!-- Title -->
+				<h3 class="mt-4">로그인</h3>
 
-										<input type="hidden" name="{{_csrf.parameterName}}"
-											value="{{_csrf.token}}" />
+				<hr>
 
-										<!-- it's important that spring security requires the id and name of the input boxes to be 'username' and 'password'  -->
+				<form method="POST" action="/users/login">
 
-										<div class="form-group">
-											<label for="username">이메일</label>
-											<input type="email" class="form-control" id="username"
-												name="username" aria-describedby="emailHelp"
-												placeholder="Enter email">
-											<small id="emailHelp" class="form-text text-muted">We'll
-												never share your email with anyone else.</small>
-										</div>
-										<div class="form-group">
-											<label for="password">비밀번호</label>
-											<input type="password" class="form-control" id="password"
-												name="password" placeholder="Password">
-										</div>
-										<button type="submit" class="btn btn-primary">로그인</button>
-									</form>
-								</div>
-							</div>
-						</div>
-						<!-- /.panel-body -->
+					<input type="hidden" name="{{_csrf.parameterName}}"
+						value="{{_csrf.token}}" />
+
+					<!-- it's important that spring security requires the id and name of the input boxes to be 'username' and 'password'  -->
+
+					<div class="form-group">
+						<label for="username">이메일</label>
+						<input type="email" class="form-control" id="username"
+							name="username" aria-describedby="emailHelp"
+							placeholder="Enter email">
+						<small id="emailHelp" class="form-text text-muted">We'll
+							never share your email with anyone else.</small>
 					</div>
-					<!-- /.panel -->
-				</div>
-				<!-- /.col-lg-12 -->
-			</div>
-			<!-- /.row -->
-		</div>
-		<!-- /#page-wrapper -->
-	</div>
-	<!-- /#wrapper -->
+					<div class="form-group">
+						<label for="password">비밀번호</label>
+						<input type="password" class="form-control" id="password"
+							name="password" placeholder="Password">
+					</div>
+					<button type="submit" class="btn btn-primary">로그인</button>
+				</form>
 
-	{{> /include/footer}}
+			</div>
+
+			{{> /include/sidewidgets}}
+
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+
 </body>
+
+{{> /include/footer}}
 
 </html>
