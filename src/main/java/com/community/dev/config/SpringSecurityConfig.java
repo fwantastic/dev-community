@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -26,8 +28,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		// 예를들어 이런식으로 인증할것들을 풀어주는겁니다. (주로 리소스)
-		web.ignoring().antMatchers("/sb-admin2/**");
+		// resources that will be ignored for authentication
+		web.ignoring().antMatchers("/startbootstrap-blog-post/**", "/simplemde/**", "/twbs-pagination/**", "/fastselect/**", "/showdown/**");
 	}
 
 	@Override
