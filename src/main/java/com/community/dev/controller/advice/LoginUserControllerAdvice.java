@@ -21,7 +21,7 @@ public class LoginUserControllerAdvice {
 		return LoginUtility.getLoggedInUserEmail();
 	}
 
-	@ModelAttribute("tags")
+	@ModelAttribute("allTags")
 	public List<Tag> getTags() {
 		return tagService.findAllByOrderByTagName();
 	}
