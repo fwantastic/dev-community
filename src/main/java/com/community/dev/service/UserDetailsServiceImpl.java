@@ -3,7 +3,6 @@ package com.community.dev.service;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
