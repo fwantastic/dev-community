@@ -24,6 +24,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
+
 import com.community.dev.util.DateFormatUtility;
 
 @Entity
@@ -50,20 +52,6 @@ public class Article implements Serializable {
 	@Transient
 	private List<Long> tagIdList;
 
-	@ManyToOne
-	@JoinColumn(name = "AUTHOR_USER_ID", referencedColumnName = "USER_ID")
-	private User author;
-
-	@ManyToOne
-	@JoinColumn(name = "UPDATE_USER_ID", referencedColumnName = "USER_ID")
-	private User updateUser;
-
-	@Column(name = "CREATE_DTM")
-	private LocalDateTime createDatetime;
-
-	@Column(name = "UPDATE_DTM")
-	private LocalDateTime updateDatetime;
-
 	@Column(name = "TITLE")
 	private String title;
 
@@ -77,7 +65,22 @@ public class Article implements Serializable {
 	private String contents;
 
 	@Column(name = "IS_ACTIVE")
+	@Type(type = "yes_no")
 	private Boolean isActive;
+
+	@ManyToOne
+	@JoinColumn(name = "CREATE_USER_ID", referencedColumnName = "USER_ID")
+	private User createUser;
+
+	@ManyToOne
+	@JoinColumn(name = "UPDATE_USER_ID", referencedColumnName = "USER_ID")
+	private User updateUser;
+
+	@Column(name = "CREATE_DTM")
+	private LocalDateTime createDatetime;
+
+	@Column(name = "UPDATE_DTM")
+	private LocalDateTime updateDatetime;
 
 	public Long getArticleId() {
 		return articleId;
@@ -115,46 +118,6 @@ public class Article implements Serializable {
 
 	public void setTagIdList(List<Long> tagIdList) {
 		this.tagIdList = tagIdList;
-	}
-
-	public User getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(User author) {
-		this.author = author;
-	}
-
-	public User getUpdateUser() {
-		return updateUser;
-	}
-
-	public void setUpdateUser(User updateUser) {
-		this.updateUser = updateUser;
-	}
-
-	public String getCreateDatetimeString() {
-		return createDatetime.format(DateFormatUtility.DATE_TIME_FORMAT);
-	}
-
-	public LocalDateTime getCreateDatetime() {
-		return createDatetime;
-	}
-
-	public void setCreateDatetime(LocalDateTime createDatetime) {
-		this.createDatetime = createDatetime;
-	}
-
-	public String getUpdateDatetimeString() {
-		return updateDatetime.format(DateFormatUtility.DATE_TIME_FORMAT);
-	}
-
-	public LocalDateTime getUpdateDatetime() {
-		return updateDatetime;
-	}
-
-	public void setUpdateDatetime(LocalDateTime updateDatetime) {
-		this.updateDatetime = updateDatetime;
 	}
 
 	public String getTitle() {
@@ -203,12 +166,53 @@ public class Article implements Serializable {
 		this.isActive = isActive;
 	}
 
+	public User getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(User createUser) {
+		this.createUser = createUser;
+	}
+
+	public User getUpdateUser() {
+		return updateUser;
+	}
+
+	public void setUpdateUser(User updateUser) {
+		this.updateUser = updateUser;
+	}
+
+	public String getCreateDatetimeString() {
+		return createDatetime.format(DateFormatUtility.DATE_TIME_FORMAT);
+	}
+
+	public LocalDateTime getCreateDatetime() {
+		return createDatetime;
+	}
+
+	public void setCreateDatetime(LocalDateTime createDatetime) {
+		this.createDatetime = createDatetime;
+	}
+
+	public String getUpdateDatetimeString() {
+		return updateDatetime.format(DateFormatUtility.DATE_TIME_FORMAT);
+	}
+
+	public LocalDateTime getUpdateDatetime() {
+		return updateDatetime;
+	}
+
+	public void setUpdateDatetime(LocalDateTime updateDatetime) {
+		this.updateDatetime = updateDatetime;
+	}
+
 	@Override
 	public String toString() {
 		return "Article [articleId=" + articleId + ", tags=" + tags + ", tagsArray=" + Arrays.toString(tagsArray)
-				+ ", author=" + author + ", createDatetime=" + createDatetime + ", updateDatetime=" + updateDatetime
-				+ ", title=" + title + ", viewCount=" + viewCount + ", likeCount=" + likeCount + ", contents="
-				+ contents + ", isActive=" + isActive + "]";
+				+ ", tagIdList=" + tagIdList + ", title=" + title + ", viewCount=" + viewCount + ", likeCount="
+				+ likeCount + ", contents=" + contents + ", isActive=" + isActive + ", createUser=" + createUser
+				+ ", updateUser=" + updateUser + ", createDatetime=" + createDatetime + ", updateDatetime="
+				+ updateDatetime + "]";
 	}
 
 }

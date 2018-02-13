@@ -1,6 +1,7 @@
 package com.community.dev.persistence;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ import org.hibernate.annotations.Type;
 @Table(name = "USER")
 public class User implements Serializable {
 
-	private static final long serialVersionUID = -3451900775639371540L;
+	private static final long serialVersionUID = 2571940587770509341L;
 
 	@Id
 	@GeneratedValue
@@ -52,6 +53,12 @@ public class User implements Serializable {
 	@Column(name = "IS_ACTIVE")
 	@Type(type = "yes_no")
 	private Boolean isActive;
+
+	@Column(name = "CREATE_DTM")
+	private LocalDateTime createDatetime;
+
+	@Column(name = "UPDATE_DTM")
+	private LocalDateTime updateDatetime;
 
 	public Long getUserId() {
 		return userId;
@@ -117,6 +124,22 @@ public class User implements Serializable {
 		this.roles = roles;
 	}
 
+	public LocalDateTime getCreateDatetime() {
+		return createDatetime;
+	}
+
+	public void setCreateDatetime(LocalDateTime createDatetime) {
+		this.createDatetime = createDatetime;
+	}
+
+	public LocalDateTime getUpdateDatetime() {
+		return updateDatetime;
+	}
+
+	public void setUpdateDatetime(LocalDateTime updateDatetime) {
+		this.updateDatetime = updateDatetime;
+	}
+
 	public String getStatus() {
 		if (isActive) {
 			return "Active";
@@ -129,7 +152,8 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [userId=" + userId + ", userNickname=" + userNickname + ", password=" + password + ", userEmail="
 				+ userEmail + ", emailSubscription=" + emailSubscription + ", activityPoint=" + activityPoint
-				+ ", isActive=" + isActive + "]";
+				+ ", roles=" + roles + ", isActive=" + isActive + ", createDatetime=" + createDatetime
+				+ ", updateDatetime=" + updateDatetime + "]";
 	}
 
 }
