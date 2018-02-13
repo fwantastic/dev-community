@@ -34,13 +34,6 @@ public class UserController {
 
 	}
 
-	@GetMapping("/login")
-	public String loginPage(User user, Model model) {
-
-		return "/users/login";
-
-	}
-
 	@GetMapping("/createForm")
 	public String createForm(User user) {
 

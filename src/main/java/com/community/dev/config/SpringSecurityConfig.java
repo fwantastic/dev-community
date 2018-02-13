@@ -29,7 +29,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// resources that will be ignored for authentication
-		web.ignoring().antMatchers("/startbootstrap-blog-post/**", "/simplemde/**", "/twbs-pagination/**", "/fastselect/**", "/showdown/**");
+		web.ignoring().antMatchers("/startbootstrap-blog-post/**", "/simplemde/**", "/twbs-pagination/**",
+				"/fastselect/**", "/showdown/**");
 	}
 
 	@Override
@@ -41,11 +42,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated()
             .and()
         .formLogin()
-            .loginPage("/users/login")
+            .loginPage("/admin/login")
             .permitAll()
             .and()
         .logout()
-	        .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
+	        .logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout"))
 	        .invalidateHttpSession(true)
 	        .logoutSuccessUrl("/");
 		// @formatter:on

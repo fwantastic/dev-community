@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.community.dev.constants.UrlConstants;
 import com.community.dev.persistence.Article;
 import com.community.dev.persistence.User;
 import com.community.dev.service.ArticleService;
@@ -48,7 +49,7 @@ public class ArticleController {
 	@GetMapping("/createForm")
 	public String createForm(Article article) {
 		if (LoginUtility.getLoggedInUserEmail() == null) {
-			return "redirect:/users/login";
+			return UrlConstants.LOGIN;
 		}
 
 		return "/articles/createForm";
@@ -60,10 +61,10 @@ public class ArticleController {
 
 		if (user == null) {
 			logger.info("user not found: " + LoginUtility.getLoggedInUserEmail());
-			return "redirect:/users/login";
+			return UrlConstants.LOGIN;
 		}
 
-		article.setAuthor(user);
+		article.setCreateUser(user);
 		articleService.save(article);
 
 		return "redirect:/articles";
@@ -75,7 +76,7 @@ public class ArticleController {
 
 		if (user == null) {
 			logger.info("user not found: " + LoginUtility.getLoggedInUserEmail());
-			return "redirect:/users/login";
+			return UrlConstants.LOGIN;
 		}
 
 		Article oldArticle = articleService.findByArticleId(article.getArticleId());
@@ -83,7 +84,7 @@ public class ArticleController {
 		if (oldArticle == null) {
 			logger.info("articleId=[{}] not found.", article.getArticleId());
 			return "redirect:/articles";
-		} else if (oldArticle.getAuthor().getUserId().longValue() != user.getUserId().longValue()) {
+		} else if (oldArticle.getCreateUser().getUserId().longValue() != user.getUserId().longValue()) {
 			logger.info("userId=[{}] cannot modify the articleId=[{}].", user.getUserId(), article.getArticleId());
 			return "redirect:/articles";
 		}
@@ -109,7 +110,7 @@ public class ArticleController {
 		Article article = articleService.findByArticleId(articleId);
 		model.addAttribute("article", article);
 
-		if (article.getAuthor().getUserEmail().equals(LoginUtility.getLoggedInUserEmail())) {
+		if (article.getCreateUser().getUserEmail().equals(LoginUtility.getLoggedInUserEmail())) {
 			model.addAttribute("allowEdit", true);
 		}
 
