@@ -6,6 +6,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.community.dev.persistence.Article;
@@ -20,13 +22,13 @@ public class TagServiceImpl implements TagService {
 	private TagRepository tagRepository;
 
 	@Override
-	public Article create(Tag tag) {
+	public Tag create(Tag tag) {
 		tagRepository.save(tag);
 		return null;
 	}
 
 	@Override
-	public Article save(Tag tag) {
+	public Tag save(Tag tag) {
 		tagRepository.save(tag);
 		return null;
 	}
@@ -34,6 +36,11 @@ public class TagServiceImpl implements TagService {
 	@Override
 	public List<Tag> findAllByOrderByTagName() {
 		return tagRepository.findAllByOrderByTagName();
+	}
+
+	@Override
+	public Page<Tag> findAllByOrderByTagName(Pageable pageable) {
+		return tagRepository.findAllByOrderByTagName(pageable);
 	}
 
 	@Override

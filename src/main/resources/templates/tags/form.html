@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{{> /include/header}}
+
+<body>
+
+	{{> /include/navigation}}
+
+	<!-- Page Content -->
+	<div class="container">
+
+		<div class="row">
+
+			{{#tag}}
+			<!-- Post Content Column -->
+			<div class="col-lg-8 wordwrap">
+
+				<!-- Title -->
+				<h1 class="mt-4">
+					{{tagName}}
+					<span class="float-right">
+						<a href="/tags/{{tagId}}/updateForm"
+							class="btn btn-success clearfix">수정</a>
+					</span>
+				</h1>
+
+				<hr>
+
+			</div>
+			{{/tag}}
+			<!--  -->
+			{{> /include/sidewidgets}}
+
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+
+</body>
+
+{{> /include/footer}}
+
+</html>
+
+
+
+

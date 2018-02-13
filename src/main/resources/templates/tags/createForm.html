@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{{> /include/header}}
+
+<body>
+
+	{{> /include/navigation}}
+
+	<!-- Page Content -->
+	<div class="container">
+
+		<div class="row">
+
+			<!-- Post Content Column -->
+			<div class="col-lg-8 wordwrap">
+
+				<!-- Title -->
+				<h1 class="mt-4">태그 만들기</h1>
+
+				<hr>
+
+				<form name="createUserForm" method="POST" action="/tags">
+					<input type="hidden" name="{{_csrf.parameterName}}"
+						value="{{_csrf.token}}" />
+
+					<div class="form-group">
+						<label for="userEmail">태그 이름</label>
+						<input class="form-control" id="tagName" name="tagName"
+							placeholder="태그 이름">
+					</div>
+
+					<button type="submit" class="btn btn-success clearfix float-right">저장</button>
+					<div class="clearfix"></div>
+
+					<hr>
+				</form>
+
+			</div>
+
+			{{> /include/sidewidgets}}
+
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+
+</body>
+
+{{> /include/footer}}
+
+</html>

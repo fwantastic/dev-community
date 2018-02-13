@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{{> /include/header}}
+
+<body>
+
+	{{> /include/navigation}}
+
+	<!-- Page Content -->
+	<div class="container">
+
+		<div class="row">
+
+			<!-- Post Content Column -->
+			<div class="col-lg-8 wordwrap">
+
+				<!-- Title -->
+				<h3 class="mt-4">
+					Tags {{#loggedInUser}}
+					<span class="float-right">
+						<a href="/tags/createForm" class="btn btn-success clearfix">태그
+							만들기</a>
+					</span>
+					{{/loggedInUser}}
+				</h3>
+
+				<hr>
+
+				{{#page}} {{#content}}
+
+				<h5>
+					<a href="{{url}}/{{tagId}}" class="text-dark">{{tagName}}</a>
+				</h5>
+
+				<hr>
+
+				{{/content}}
+				<!--  -->
+				{{> /include/pagination}}
+				<!--  -->
+				{{/page}}
+
+			</div>
+
+			{{> /include/sidewidgets}}
+
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+
+</body>
+
+{{> /include/footer}}
+
+</html>

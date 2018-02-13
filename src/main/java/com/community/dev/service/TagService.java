@@ -10,14 +10,16 @@ import com.community.dev.persistence.Tag;
 
 public interface TagService {
 
-	Article create(Tag tag);
+	Tag create(Tag tag);
 
-	Article save(Tag tag);
+	Tag save(Tag tag);
 
 	List<Tag> findAllByOrderByTagName();
 
 	Tag findByTagId(Long tagId);
 
 	List<Tag> findByTagIdIn(List<Long> tagIdList);
+
+	Page<Tag> findAllByOrderByTagName(Pageable pageable);
 
 }
