@@ -80,6 +80,7 @@
 <script type="text/javascript">
 	var inputtxt = document.getElementById('tagsArray');
 
+		/* iterate through the tags list to show them as selected */
 		{{#article}}
 			{{#tags}}
 				$("#tagsArray option[value=" + {{tagId}} + "]").prop("selected", "selected");
