@@ -29,8 +29,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// resources that will be ignored for authentication
-		web.ignoring().antMatchers("/startbootstrap-blog-post/**", "/simplemde/**", "/twbs-pagination/**",
-				"/fastselect/**", "/showdown/**");
+		web.ignoring().antMatchers("/dev-community/**", "/fastselect/**", "/remarkable/**",
+				"/startbootstrap-blog-post/**", "/twbs-pagination/**");
 	}
 
 	@Override
@@ -55,8 +55,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-		// auth.userDetailsService(userDetailsService);
-		// auth.inMemoryAuthentication().withUser("user@test.com").password("password").roles("USER");
 	}
 
 }
