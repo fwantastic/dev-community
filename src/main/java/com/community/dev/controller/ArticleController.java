@@ -96,7 +96,7 @@ public class ArticleController {
 		oldArticle.setUpdateUser(user);
 
 		articleService.save(oldArticle);
-		return "redirect:/articles";
+		return "redirect:/articles/" + oldArticle.getArticleId();
 	}
 
 	@GetMapping("/{articleId}/updateForm")
