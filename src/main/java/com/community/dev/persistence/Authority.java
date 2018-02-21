@@ -36,4 +36,40 @@ public class Authority implements Serializable {
 		this.authorityName = authorityName;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((authorityName == null) ? 0 : authorityName.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Authority other = (Authority) obj;
+		if (authorityName == null) {
+			if (other.authorityName != null)
+				return false;
+		} else if (!authorityName.equals(other.authorityName))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Authority [userId=" + userId + ", authorityName=" + authorityName + "]";
+	}
+
 }

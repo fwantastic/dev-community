@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.hibernate.annotations.Type;
 
 @Entity
@@ -23,6 +24,9 @@ import org.hibernate.annotations.Type;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 2571940587770509341L;
+
+	private static final String INACTIVE = "Inactive";
+	private static final String ACTIVE = "Active";
 
 	@Id
 	@GeneratedValue
@@ -141,11 +145,45 @@ public class User implements Serializable {
 	}
 
 	public String getStatus() {
-		if (isActive) {
-			return "Active";
+		if (BooleanUtils.isTrue(isActive)) {
+			return ACTIVE;
 		}
 
-		return "Inactive";
+		return INACTIVE;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((activityPoint == null) ? 0 : activityPoint.hashCode());
+		result = prime * result + ((createDatetime == null) ? 0 : createDatetime.hashCode());
+		result = prime * result + ((emailSubscription == null) ? 0 : emailSubscription.hashCode());
+		result = prime * result + ((isActive == null) ? 0 : isActive.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
+		result = prime * result + ((updateDatetime == null) ? 0 : updateDatetime.hashCode());
+		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((userNickname == null) ? 0 : userNickname.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
 	}
 
 	@Override

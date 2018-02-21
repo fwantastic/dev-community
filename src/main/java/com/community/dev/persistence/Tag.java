@@ -51,4 +51,39 @@ public class Tag implements Serializable {
 		this.tagName = tagName;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((createDatetime == null) ? 0 : createDatetime.hashCode());
+		result = prime * result + ((isActive == null) ? 0 : isActive.hashCode());
+		result = prime * result + ((tagId == null) ? 0 : tagId.hashCode());
+		result = prime * result + ((tagName == null) ? 0 : tagName.hashCode());
+		result = prime * result + ((updateDatetime == null) ? 0 : updateDatetime.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tag other = (Tag) obj;
+		if (tagId == null) {
+			if (other.tagId != null)
+				return false;
+		} else if (!tagId.equals(other.tagId))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Tag [tagId=" + tagId + ", tagName=" + tagName + ", isActive=" + isActive + ", createDatetime="
+				+ createDatetime + ", updateDatetime=" + updateDatetime + "]";
+	}
+
 }

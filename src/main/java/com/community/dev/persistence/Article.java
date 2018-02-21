@@ -207,6 +207,43 @@ public class Article implements Serializable {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((articleId == null) ? 0 : articleId.hashCode());
+		result = prime * result + ((contents == null) ? 0 : contents.hashCode());
+		result = prime * result + ((createDatetime == null) ? 0 : createDatetime.hashCode());
+		result = prime * result + ((createUser == null) ? 0 : createUser.hashCode());
+		result = prime * result + ((isActive == null) ? 0 : isActive.hashCode());
+		result = prime * result + ((likeCount == null) ? 0 : likeCount.hashCode());
+		result = prime * result + ((tagIdList == null) ? 0 : tagIdList.hashCode());
+		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
+		result = prime * result + Arrays.hashCode(tagsArray);
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((updateDatetime == null) ? 0 : updateDatetime.hashCode());
+		result = prime * result + ((updateUser == null) ? 0 : updateUser.hashCode());
+		result = prime * result + ((viewCount == null) ? 0 : viewCount.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Article other = (Article) obj;
+		if (articleId == null) {
+			if (other.articleId != null)
+				return false;
+		} else if (!articleId.equals(other.articleId))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		return "Article [articleId=" + articleId + ", tags=" + tags + ", tagsArray=" + Arrays.toString(tagsArray)
 				+ ", tagIdList=" + tagIdList + ", title=" + title + ", viewCount=" + viewCount + ", likeCount="
