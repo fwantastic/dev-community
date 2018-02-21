@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{{> /include/header}}
+{{> /include/header}} {{> /include/markdownHeader}}
 
 <body>
 
@@ -13,7 +13,7 @@
 		<div class="row">
 
 			<!-- Post Content Column -->
-			<div class="col-lg-8 wordwrap">
+			<div class="col-lg-6 wordwrap">
 
 				<!-- Title -->
 				<h1 class="mt-4">수정</h1>
@@ -47,7 +47,10 @@
 						</div>
 					</div>
 
-					<textarea name="contents" id="contents">{{contents}}</textarea>
+					<textarea class="form-control" name="contents" id="contents"
+						rows="10">{{contents}}</textarea>
+
+					<hr>
 
 					<button type="submit" class="btn btn-success clearfix float-right">저장</button>
 					<div class="clearfix"></div>
@@ -58,7 +61,15 @@
 
 			</div>
 
-			{{> /include/sidewidgets}}
+			<div class="col-lg-6 wordwrap">
+
+				<!-- Title -->
+				<h1 class="mt-4">미리보기</h1>
+
+				<hr>
+
+				<div id="preview"></div>
+			</div>
 
 		</div>
 		<!-- /.row -->
@@ -68,14 +79,7 @@
 
 </body>
 
-{{> /include/footer}}
-
-<script>
-	var simplemde = new SimpleMDE({
-		element : document.getElementById("contents"),
-		spellChecker : false,
-	});
-</script>
+{{> /include/footer}} {{> /include/markdownFooter}}
 
 <script type="text/javascript">
 	var inputtxt = document.getElementById('tagsArray');

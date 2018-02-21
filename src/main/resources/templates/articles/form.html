@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{{> /include/header}}
+{{> /include/header}} {{> /include/markdownHeader}}
 
 <body>
 
@@ -41,7 +41,9 @@
 
 				<hr>
 
-				<div id="contents"></div>
+				<div id="preview"></div>
+
+				<textarea style="display: none;" name="contents" id="contents">{{contents}}</textarea>
 
 			</div>
 			{{/article}}
@@ -56,15 +58,7 @@
 
 </body>
 
-{{> /include/footer}}
-
-<script>
-	var text = '{{#article}}{{convertContents}}{{/article}}', target = document
-			.getElementById('contents'), converter = new showdown.Converter(), html = converter
-			.makeHtml(text);
-
-	target.innerHTML = html;
-</script>
+{{> /include/footer}} {{> /include/markdownFooter}}
 
 <script type="text/javascript">
 	$('.multipleSelect').fastselect();

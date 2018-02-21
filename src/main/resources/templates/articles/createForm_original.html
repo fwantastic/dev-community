@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{{> /include/header}} {{> /include/markdownHeader}}
+{{> /include/header}}
 
 <body>
 
@@ -13,7 +13,7 @@
 		<div class="row">
 
 			<!-- Post Content Column -->
-			<div class="col-lg-6 wordwrap">
+			<div class="col-lg-8 wordwrap">
 
 				<!-- Title -->
 				<h1 class="mt-4">글쓰기</h1>
@@ -43,29 +43,17 @@
 						</div>
 					</div>
 
-					<textarea class="form-control" name="contents" id="contents"
-						rows="10"></textarea>
-
-					<hr>
+					<textarea name="contents" id="contents"></textarea>
 
 					<button type="submit" class="btn btn-success clearfix float-right">저장</button>
 					<div class="clearfix"></div>
 
 					<hr>
-
 				</form>
 
 			</div>
 
-			<div class="col-lg-6 wordwrap">
-
-				<!-- Title -->
-				<h1 class="mt-4">미리보기</h1>
-
-				<hr>
-
-				<div id="preview"></div>
-			</div>
+			{{> /include/sidewidgets}}
 
 		</div>
 		<!-- /.row -->
@@ -75,7 +63,17 @@
 
 </body>
 
-{{> /include/footer}} {{> /include/markdownFooter}}
+{{> /include/footer}}
+
+<script>
+	var simplemde = new SimpleMDE({
+		element : document.getElementById("contents"),
+		spellChecker : false,
+		renderingConfig : {
+			codeSyntaxHighlighting : true,
+		},
+	});
+</script>
 
 <script type="text/javascript">
 	$('.multipleSelect').fastselect();
