@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.community.dev.persistence.Article;
 import com.community.dev.persistence.Tag;
 
 public interface TagService {

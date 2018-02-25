@@ -11,8 +11,6 @@ public interface ArticleService {
 
 	Article save(Article article);
 
-	// List<Article> findAll(Pageable pageable);
-
 	Page<Article> findAll(Pageable pageable);
 
 	Article findByArticleId(Long articleId);

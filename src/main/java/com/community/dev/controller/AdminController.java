@@ -1,12 +1,10 @@
 package com.community.dev.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.community.dev.constants.UrlConstants;
-import com.community.dev.persistence.User;
 import com.community.dev.util.LoginUtility;
 
 @Controller
