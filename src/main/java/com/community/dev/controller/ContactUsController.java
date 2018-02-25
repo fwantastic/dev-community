@@ -19,7 +19,7 @@ public class ContactUsController {
 
 	@GetMapping("/contactus")
 	public String contactus() {
-		return "/contactus/contactus";
+		return "contactus/contactus";
 	}
 
 	@PostMapping("/contactus")
@@ -27,7 +27,7 @@ public class ContactUsController {
 		if (StringUtils.isNoneBlank(contactUs.getEmail(), contactUs.getSubject(), contactUs.getMessage())) {
 			emailService.sendSimpleMessage(contactUs.getEmail() + "-" + contactUs.getSubject(), contactUs.getMessage());
 		}
-		return "/contactus/contactusSuccess";
+		return "contactus/contactusSuccess";
 	}
 
 }

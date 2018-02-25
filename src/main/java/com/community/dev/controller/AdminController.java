@@ -13,19 +13,19 @@ import com.community.dev.util.LoginUtility;
 @RequestMapping("/admin")
 public class AdminController {
 
-	@GetMapping("")
+	@GetMapping
 	public String adminDefault() {
 
 		if (LoginUtility.getLoggedInUserEmail() == null) {
 			return UrlConstants.LOGIN;
 		}
 
-		return "/admin/list";
+		return "admin/list";
 	}
 
 	@GetMapping("/login")
 	public String login() {
-		return "/admin/login";
+		return "admin/login";
 	}
 
 }

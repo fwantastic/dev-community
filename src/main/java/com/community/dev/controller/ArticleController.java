@@ -43,7 +43,7 @@ public class ArticleController {
 		PageWrapper<Article> page = new PageWrapper<Article>(articleService.findAll(pageable), "/articles");
 		model.addAttribute("page", page);
 
-		return "/articles/list";
+		return "articles/list";
 	}
 
 	@GetMapping("/createForm")
@@ -52,7 +52,7 @@ public class ArticleController {
 			return UrlConstants.LOGIN;
 		}
 
-		return "/articles/createForm";
+		return "articles/createForm";
 	}
 
 	@PostMapping
@@ -102,7 +102,7 @@ public class ArticleController {
 	@GetMapping("/{articleId}/updateForm")
 	public String updateForm(@PathVariable Long articleId, Model model) {
 		model.addAttribute("article", articleService.findByArticleId(articleId));
-		return "/articles/updateForm";
+		return "articles/updateForm";
 	}
 
 	@GetMapping("/{articleId}")
@@ -114,7 +114,7 @@ public class ArticleController {
 			model.addAttribute("allowEdit", true);
 		}
 
-		return "/articles/form";
+		return "articles/form";
 	}
 
 	@GetMapping("tags/{tagIds}")
@@ -125,7 +125,7 @@ public class ArticleController {
 				"/articles");
 		model.addAttribute("page", page);
 
-		return "/articles/list";
+		return "articles/list";
 	}
 
 }

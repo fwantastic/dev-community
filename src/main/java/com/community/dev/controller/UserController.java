@@ -30,14 +30,14 @@ public class UserController {
 
 		model.addAttribute("users", userService.findAll());
 
-		return "/users/list";
+		return "users/list";
 
 	}
 
 	@GetMapping("/createForm")
 	public String createForm(User user) {
 
-		return "/users/createForm";
+		return "users/createForm";
 
 	}
 
@@ -57,7 +57,7 @@ public class UserController {
 
 		if (user == null) {
 			logger.info("user not found: " + LoginUtility.getLoggedInUserEmail());
-			return "/users/login";
+			return "users/login";
 		}
 
 		return "redirect:/users/" + user.getUserId() + "/updateForm";
@@ -69,7 +69,7 @@ public class UserController {
 
 		model.addAttribute("user", userService.findByUserId(userId));
 
-		return "/users/updateForm";
+		return "users/updateForm";
 
 	}
 

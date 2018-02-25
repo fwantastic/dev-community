@@ -46,7 +46,7 @@ public class TagController {
 		PageWrapper<Tag> page = new PageWrapper<Tag>(tagService.findAllByOrderByTagName(pageable), "/tags");
 		model.addAttribute("page", page);
 
-		return "/tags/list";
+		return "tags/list";
 	}
 
 	@GetMapping("/createForm")
@@ -55,7 +55,7 @@ public class TagController {
 			return UrlConstants.LOGIN;
 		}
 
-		return "/tags/createForm";
+		return "tags/createForm";
 	}
 
 	@PostMapping
@@ -97,7 +97,7 @@ public class TagController {
 	@GetMapping("/{tagId}/updateForm")
 	public String updateForm(@PathVariable Long tagId, Model model) {
 		model.addAttribute("tag", tagService.findByTagId(tagId));
-		return "/tags/updateForm";
+		return "tags/updateForm";
 	}
 
 	@GetMapping("/{tagId}")
@@ -113,7 +113,7 @@ public class TagController {
 		Tag tag = tagService.findByTagId(tagId);
 		model.addAttribute("tag", tag);
 
-		return "/tags/form";
+		return "tags/form";
 	}
 
 }
