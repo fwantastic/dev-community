@@ -3,6 +3,7 @@ package com.community.dev.controller.advice;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -16,6 +17,9 @@ public class LoginUserControllerAdvice {
 	@Autowired
 	private TagService tagService;
 
+	@Value("${google.analytics.tracking.id}")
+	private String googleAnalyticsTrackingId;
+
 	@ModelAttribute("loggedInUser")
 	public String getLoggedInUser() {
 		return LoginUtility.getLoggedInUserEmail();
@@ -24,6 +28,11 @@ public class LoginUserControllerAdvice {
 	@ModelAttribute("allTags")
 	public List<Tag> getTags() {
 		return tagService.findAllByOrderByTagName();
+	}
+
+	@ModelAttribute("googleAnalyticsTrackingId")
+	public String getGoogleAnalyticsTrackingId() {
+		return googleAnalyticsTrackingId;
 	}
 
 }
