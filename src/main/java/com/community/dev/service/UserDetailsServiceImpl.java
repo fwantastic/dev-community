@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		User user = userRepository.findByUserEmail(username);
+		User user = userRepository.findByUserEmailAndIsActiveTrue(username);
 
 		user.setPassword(encoder.encode(user.getPassword()));
 
