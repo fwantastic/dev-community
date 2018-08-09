@@ -7,3 +7,4 @@
 - add comments feature
 - add article views for admin
 - add file upload feature
+- only active user will be authenticated
