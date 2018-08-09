@@ -1,54 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-{{> include/header}} {{> include/markdownHeader}}
+<head th:replace="/common/header :: header"></head>
+
+<div th:replace="/common/markdown :: markdownHeader"></div>
 
 <body>
 
-	{{> include/navigation}}
+	<div th:replace="/common/navigator :: navigator"></div>
 
 	<!-- Page Content -->
 	<div class="container">
 
 		<div class="row">
 
-			{{#article}}
 			<!-- Post Content Column -->
 			<div class="col-lg-8 wordwrap">
 
 				<!-- Title -->
 				<h1 class="mt-4">
-					{{title}} {{#allowEdit}}
-					<span class="float-right">
-						<a href="/articles/{{articleId}}/updateForm"
-							class="btn btn-success clearfix">수정</a>
+					<th:block th:utext="${article.title}" />
+					<span class="float-right" sec:authorize="isAuthenticated()">
+						<a
+						th:href="@{'/articles/' + ${article.articleId} + '/updateForm'}"
+						class="btn btn-success clearfix">수정</a>
 					</span>
-					{{/allowEdit}}
+
 				</h1>
 
-				<hr>
+				<hr />
 
 				<h4>
-					{{#tags}}
-					<span class="badge badge-primary">{{tagName}}</span>
-					{{/tags}}
+					<th:block th:each="tag: ${article.tags}">
+						<span class="badge badge-primary" th:text="${tag.tagName}"></span>
+					</th:block>
 				</h4>
 
-				<hr>
+				<hr />
 
-				<p>by {{createUser.userNickname}} | Last Updated:
-					{{updateDatetimeString}}</p>
+				<p th:inline="text">by [[${article.createUser.userNickname}]] |
+					Last Updated: [[${article.updateDatetimeString}]]</p>
 
-				<hr>
+				<hr />
 
 				<div id="preview"></div>
 
-				<textarea style="display: none;" name="contents" id="contents">{{contents}}</textarea>
+				<textarea style="display: none;" name="contents" id="contents"><th:block
+						th:utext="${article.contents}" /></textarea>
 
 			</div>
-			{{/article}}
-			<!--  -->
-			{{> include/sidewidgets}}
+
+			<div th:replace="/common/sidewidgets :: sidewidgets"></div>
 
 		</div>
 		<!-- /.row -->
@@ -58,7 +60,9 @@
 
 </body>
 
-{{> include/footer}} {{> include/markdownFooter}}
+<div th:replace="/common/footer :: footer"></div>
+
+<div th:replace="/common/markdown :: markdownFooter"></div>
 
 <script type="text/javascript">
 	$('.multipleSelect').fastselect();

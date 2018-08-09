@@ -48,10 +48,6 @@ public class ArticleController {
 
 	@GetMapping("/createForm")
 	public String createForm(Article article) {
-		if (LoginUtility.getLoggedInUserEmail() == null) {
-			return UrlConstants.LOGIN;
-		}
-
 		return "articles/createForm";
 	}
 
@@ -109,10 +105,6 @@ public class ArticleController {
 	public String form(@PathVariable Long articleId, Model model) {
 		Article article = articleService.findByArticleId(articleId);
 		model.addAttribute("article", article);
-
-		if (article.getCreateUser().getUserEmail().equals(LoginUtility.getLoggedInUserEmail())) {
-			model.addAttribute("allowEdit", true);
-		}
 
 		return "articles/form";
 	}

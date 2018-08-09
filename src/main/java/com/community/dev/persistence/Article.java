@@ -98,6 +98,10 @@ public class Article implements Serializable {
 		this.tags = tags;
 	}
 
+	public boolean tagExists(Long tagId) {
+		return tags.stream().anyMatch(t -> t.getTagId().equals(tagId));
+	}
+
 	public String[] getTagsArray() {
 		return tagsArray;
 	}

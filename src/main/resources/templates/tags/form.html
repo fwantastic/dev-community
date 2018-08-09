@@ -1,36 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-{{> include/header}}
+<head th:replace="/common/header :: header"></head>
 
 <body>
 
-	{{> include/navigation}}
+	<div th:replace="/common/navigator :: navigator"></div>
 
 	<!-- Page Content -->
 	<div class="container">
 
 		<div class="row">
 
-			{{#tag}}
 			<!-- Post Content Column -->
 			<div class="col-lg-8 wordwrap">
 
 				<!-- Title -->
 				<h1 class="mt-4">
-					{{tagName}}
-					<span class="float-right">
-						<a href="/tags/{{tagId}}/updateForm"
-							class="btn btn-success clearfix">수정</a>
+					<th:block th:utext="${tag.tagName}" />
+					<span class="float-right"> <a
+						th:href="@{'/tags/' + ${tagId} + '/updateForm'}"
+						class="btn btn-success clearfix">수정</a>
 					</span>
 				</h1>
 
-				<hr>
+				<hr />
 
 			</div>
-			{{/tag}}
-			<!--  -->
-			{{> include/sidewidgets}}
+
+			<div th:replace="/common/sidewidgets :: sidewidgets"></div>
 
 		</div>
 		<!-- /.row -->
@@ -40,7 +38,7 @@
 
 </body>
 
-{{> include/footer}}
+<div th:replace="/common/footer :: footer"></div>
 
 </html>
 

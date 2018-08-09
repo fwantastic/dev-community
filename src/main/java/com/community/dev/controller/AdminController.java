@@ -13,11 +13,6 @@ public class AdminController {
 
 	@GetMapping
 	public String adminDefault() {
-
-		if (LoginUtility.getLoggedInUserEmail() == null) {
-			return UrlConstants.LOGIN;
-		}
-
 		return "admin/list";
 	}
 

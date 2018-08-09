@@ -27,26 +27,33 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// resources that will be ignored for authentication
-		web.ignoring().antMatchers("/dev-community/**", "/fastselect/**", "/remarkable/**",
-				"/startbootstrap-blog-post/**", "/twbs-pagination/**");
+		// @formatter:off
+		web.ignoring().antMatchers(
+				"/dev-community/**", 
+				"/fastselect/**", 
+				"/remarkable/**",
+				"/startbootstrap-blog-post/**", 
+				"/twbs-pagination/**"
+				);
+		// @formatter:on
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
-        http
-        .authorizeRequests()
-        	.antMatchers("/**").permitAll()
-            .anyRequest().authenticated()
-            .and()
-        .formLogin()
-            .loginPage("/admin/login")
-            .permitAll()
-            .and()
-        .logout()
-	        .logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout"))
-	        .invalidateHttpSession(true)
-	        .logoutSuccessUrl("/");
+		http
+			.authorizeRequests()
+				.antMatchers("/admin/**").hasAnyRole("ADMIN")
+				.antMatchers("/tags/**").hasAnyRole("ADMIN")
+				.antMatchers("/**").permitAll()
+				.anyRequest().authenticated().and()
+			.formLogin()
+				.loginPage("/admin/login").permitAll()
+				.and()
+			.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout"))
+				.invalidateHttpSession(true)
+				.logoutSuccessUrl("/");
 		// @formatter:on
 	}
 

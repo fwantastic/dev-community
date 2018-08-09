@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-{{> include/header}}
+<head th:replace="/common/header :: header"></head>
 
 <body>
 
-	{{> include/navigation}}
+	<div th:replace="/common/navigator :: navigator"></div>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -18,23 +18,23 @@
 				<!-- Title -->
 				<h3 class="mt-4">Contact Us</h3>
 
-				<hr>
+				<hr />
 
 				<form name="contact-form" method="POST" action="/contactus">
-					<input type="hidden" name="{{_csrf.parameterName}}"
-						value="{{_csrf.token}}" />
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" />
 
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<input type="email" class="form-control" name="email"
-									autocomplete="off" id="email" placeholder="E-mail">
+									autocomplete="off" id="email" placeholder="E-mail" />
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<input type="text" class="form-control" name="subject"
-									autocomplete="off" id="subject" placeholder="Subject">
+									autocomplete="off" id="subject" placeholder="Subject" />
 							</div>
 						</div>
 					</div>
@@ -64,6 +64,6 @@
 
 </body>
 
-{{> include/footer}}
+<div th:replace="/common/footer :: footer"></div>
 
 </html>

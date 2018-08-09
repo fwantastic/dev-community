@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-{{> include/header}}
+<head th:replace="/common/header :: header"></head>
 
 <body>
 
-	{{> include/navigation}}
+	<div th:replace="/common/navigator :: navigator"></div>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -18,23 +18,23 @@
 				<!-- Title -->
 				<h3 class="mt-4">Admin</h3>
 
-				<hr>
+				<hr />
 
 				<h5>
 					<a href="/tags" class="text-dark">Tags</a>
 				</h5>
 
-				<hr>
+				<hr />
 
 				<h5>
 					<a href="/articles" class="text-dark">Articles</a>
 				</h5>
 
-				<hr>
+				<hr />
 
 			</div>
 
-			{{> include/sidewidgets}}
+			<div th:replace="/common/sidewidgets :: sidewidgets"></div>
 
 		</div>
 		<!-- /.row -->
@@ -44,6 +44,6 @@
 
 </body>
 
-{{> include/footer}}
+<div th:replace="/common/footer :: footer"></div>
 
 </html>

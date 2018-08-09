@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-{{> include/header}}
+<head th:replace="/common/header :: header"></head>
 
 <body>
 
-	{{> include/navigation}}
+	<div th:replace="/common/navigator :: navigator"></div>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -18,32 +18,29 @@
 				<!-- Title -->
 				<h1 class="mt-4">수정</h1>
 
-				<hr>
+				<hr />
 
-				{{#tag}}
 				<form name="createUserForm" method="POST" action="/tags">
-					<input type="hidden" name="_method" value="put" />
-					<input type="hidden" name="{{_csrf.parameterName}}"
-						value="{{_csrf.token}}" />
-
-					<input type="hidden" name="tagId" value="{{tagId}}" />
+					<input type="hidden" name="_method" value="put" /> <input
+						type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" /> <input type="hidden" name="tagId"
+						th:value="${tag.tagId}" />
 
 					<div class="form-group">
-						<label for="userEmail">태그 이름</label>
-						<input class="form-control" id="tagName" name="tagName"
-							placeholder="태그" value="{{tagName}}">
+						<label for="userEmail">태그 이름</label> <input class="form-control"
+							id="tagName" name="tagName" placeholder="태그 이름"
+							th:value="${tag.tagName}" />
 					</div>
 
 					<button type="submit" class="btn btn-success clearfix float-right">저장</button>
 					<div class="clearfix"></div>
 
-					<hr>
+					<hr />
 				</form>
-				{{/tag}}
 
 			</div>
 
-			{{> include/sidewidgets}}
+			<div th:replace="/common/sidewidgets :: sidewidgets"></div>
 
 		</div>
 		<!-- /.row -->
@@ -53,6 +50,6 @@
 
 </body>
 
-{{> include/footer}}
+<div th:replace="/common/footer :: footer"></div>
 
 </html>

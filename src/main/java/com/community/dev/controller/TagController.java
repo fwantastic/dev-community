@@ -14,13 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.community.dev.constants.UrlConstants;
 import com.community.dev.persistence.Article;
 import com.community.dev.persistence.Tag;
-import com.community.dev.persistence.User;
 import com.community.dev.service.TagService;
-import com.community.dev.service.UserService;
-import com.community.dev.util.LoginUtility;
 import com.community.dev.util.PageWrapper;
 
 @Controller
@@ -32,16 +28,9 @@ public class TagController {
 	@Autowired
 	private TagService tagService;
 
-	@Autowired
-	private UserService userService;
-
 	@GetMapping
 	public String list(Model model,
 			@PageableDefault(sort = { "tagId" }, direction = Direction.DESC, size = 20) Pageable pageable) {
-
-		if (LoginUtility.getLoggedInUserEmail() == null) {
-			return UrlConstants.LOGIN;
-		}
 
 		PageWrapper<Tag> page = new PageWrapper<Tag>(tagService.findAllByOrderByTagName(pageable), "/tags");
 		model.addAttribute("page", page);
@@ -51,22 +40,11 @@ public class TagController {
 
 	@GetMapping("/createForm")
 	public String createForm(Article article) {
-		if (LoginUtility.getLoggedInUserEmail() == null) {
-			return UrlConstants.LOGIN;
-		}
-
 		return "tags/createForm";
 	}
 
 	@PostMapping
 	public String create(Tag tag) {
-		User user = userService.findByUserEmail(LoginUtility.getLoggedInUserEmail());
-
-		if (user == null) {
-			logger.info("user not found: " + LoginUtility.getLoggedInUserEmail());
-			return UrlConstants.LOGIN;
-		}
-
 		tagService.save(tag);
 
 		return "redirect:/tags";
@@ -74,13 +52,6 @@ public class TagController {
 
 	@PutMapping
 	public String update(Tag tag) {
-		User user = userService.findByUserEmail(LoginUtility.getLoggedInUserEmail());
-
-		if (user == null) {
-			logger.info("user not found: " + LoginUtility.getLoggedInUserEmail());
-			return UrlConstants.LOGIN;
-		}
-
 		Tag oldTag = tagService.findByTagId(tag.getTagId());
 
 		if (oldTag == null) {
@@ -102,13 +73,6 @@ public class TagController {
 
 	@GetMapping("/{tagId}")
 	public String form(@PathVariable Long tagId, Model model) {
-
-		User user = userService.findByUserEmail(LoginUtility.getLoggedInUserEmail());
-
-		if (user == null) {
-			logger.info("user not found: " + LoginUtility.getLoggedInUserEmail());
-			return UrlConstants.LOGIN;
-		}
 
 		Tag tag = tagService.findByTagId(tagId);
 		model.addAttribute("tag", tag);

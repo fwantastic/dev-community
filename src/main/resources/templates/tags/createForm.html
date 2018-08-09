@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-{{> include/header}}
+<head th:replace="/common/header :: header"></head>
 
 <body>
 
-	{{> include/navigation}}
+	<div th:replace="/common/navigator :: navigator"></div>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -18,27 +18,26 @@
 				<!-- Title -->
 				<h1 class="mt-4">태그 만들기</h1>
 
-				<hr>
+				<hr />
 
 				<form name="createUserForm" method="POST" action="/tags">
-					<input type="hidden" name="{{_csrf.parameterName}}"
-						value="{{_csrf.token}}" />
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" />
 
 					<div class="form-group">
-						<label for="userEmail">태그 이름</label>
-						<input class="form-control" id="tagName" name="tagName"
-							placeholder="태그 이름">
+						<label for="userEmail">태그 이름</label> <input class="form-control"
+							id="tagName" name="tagName" placeholder="태그 이름" />
 					</div>
 
 					<button type="submit" class="btn btn-success clearfix float-right">저장</button>
 					<div class="clearfix"></div>
 
-					<hr>
+					<hr />
 				</form>
 
 			</div>
 
-			{{> include/sidewidgets}}
+			<div th:replace="/common/sidewidgets :: sidewidgets"></div>
 
 		</div>
 		<!-- /.row -->
@@ -48,6 +47,6 @@
 
 </body>
 
-{{> include/footer}}
+<div th:replace="/common/footer :: footer"></div>
 
 </html>

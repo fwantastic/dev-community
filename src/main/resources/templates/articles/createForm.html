@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-{{> include/header}} {{> include/markdownHeader}}
+<head th:replace="/common/header :: header"></head>
+
+<div th:replace="/common/markdown :: markdownHeader"></div>
 
 <body>
 
-	{{> include/navigation}}
+	<div th:replace="/common/navigator :: navigator"></div>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -18,27 +20,26 @@
 				<!-- Title -->
 				<h1 class="mt-4">글쓰기</h1>
 
-				<hr>
+				<hr />
 
 				<form name="createUserForm" method="POST" action="/articles">
-					<input type="hidden" name="{{_csrf.parameterName}}"
-						value="{{_csrf.token}}" />
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" />
 
 					<div class="form-group">
-						<label for="userEmail">제목</label>
-						<input class="form-control" id="title" name="title"
-							placeholder="제목">
+						<label for="userEmail">제목</label> <input class="form-control"
+							id="title" name="title" placeholder="제목" />
 					</div>
 
 					<div class="form-group">
 						<label for="userEmail">Tags</label>
 
-						<div class="">
-							<select id="tagsArray" name="tagsArray" class="multipleSelect"
-								multiple name="tagsArray">
-								{{#allTags}}
-								<option value="{{tagId}}">{{tagName}}</option>
-								{{/allTags}}
+						<div>
+							<select multiple="multiple" name="tagsArray"
+								class="multipleSelect">
+								<th:block th:each="tag: ${allTags}">
+									<option th:value="${tag.tagId}" th:text="${tag.tagName}" />
+								</th:block>
 							</select>
 						</div>
 					</div>
@@ -46,12 +47,12 @@
 					<textarea class="form-control" name="contents" id="contents"
 						rows="10"></textarea>
 
-					<hr>
+					<hr />
 
 					<button type="submit" class="btn btn-success clearfix float-right">저장</button>
 					<div class="clearfix"></div>
 
-					<hr>
+					<hr />
 
 				</form>
 
@@ -62,7 +63,7 @@
 				<!-- Title -->
 				<h1 class="mt-4">미리보기</h1>
 
-				<hr>
+				<hr />
 
 				<div id="preview"></div>
 			</div>
@@ -75,7 +76,9 @@
 
 </body>
 
-{{> include/footer}} {{> include/markdownFooter}}
+<div th:replace="/common/footer :: footer"></div>
+
+<div th:replace="/common/markdown :: markdownFooter"></div>
 
 <script type="text/javascript">
 	$('.multipleSelect').fastselect();
