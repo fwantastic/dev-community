@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="/common/header :: header"></head>
+<head th:replace="common/header :: header"></head>
 
-<div th:replace="/common/markdown :: markdownHeader"></div>
+<div th:replace="common/markdown :: markdownHeader"></div>
 
 <body>
 
-	<div th:replace="/common/navigator :: navigator"></div>
+	<div th:replace="common/navigator :: navigator"></div>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -76,9 +76,9 @@
 
 </body>
 
-<div th:replace="/common/footer :: footer"></div>
+<div th:replace="common/footer :: footer"></div>
 
-<div th:replace="/common/markdown :: markdownFooter"></div>
+<div th:replace="common/markdown :: markdownFooter"></div>
 
 <script type="text/javascript">
 	$('.multipleSelect').fastselect();
