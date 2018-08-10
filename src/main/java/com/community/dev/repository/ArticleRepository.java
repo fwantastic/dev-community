@@ -12,4 +12,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
 	Page<Article> findDistinctByTags_TagIdIn(List<Long> tagIdList, Pageable pageable);
 
+	Page<Article> findAllByOrderByUpdateDatetimeDesc(Pageable pageable);
+
 }

@@ -41,15 +41,9 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleRepository.save(article);
 	}
 
-	// @Override
-	// public List<Article> findAll(Pageable pageable) {
-	// Page<Article> page = articleRepository.findAll(pageable);
-	// return page.getContent();
-	// }
-
 	@Override
 	public Page<Article> findAll(Pageable pageable) {
-		return articleRepository.findAll(pageable);
+		return articleRepository.findAllByOrderByUpdateDatetimeDesc(pageable);
 	}
 
 	@Override
