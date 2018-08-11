@@ -14,11 +14,10 @@
 						href="/articles/tags/1"> 자바 </a></li>
 					<li class="nav-item active"><a class="nav-link"
 						href="/articles/tags/2"> 스프링 부트 </a></li>
-					<!-- <li class="nav-item active">
-					<a class="nav-link" href="/articles/tags/3"> �궗�슜湲�/�썑湲�/�똻 </a>
-				</li> -->
 					<li class="nav-item active"><a class="nav-link"
 						href="/contactus"> Contact Us </a></li>
+					<li class="nav-item active" sec:authorize="isAuthenticated()"><a
+						class="nav-link" href="/admin/logout"> Logout </a></li>
 				</ul>
 			</div>
 		</div>
