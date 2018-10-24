@@ -9,15 +9,15 @@
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async=""
-		src="https://www.googletagmanager.com/gtag/js?id={{googleAnalyticsTrackingId}}"></script>
-	<script>
+		th:src="|https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsTrackingId}|"></script>
+	<script th:inline="javascript">
 		window.dataLayer = window.dataLayer || [];
 		function gtag() {
 			dataLayer.push(arguments);
 		}
 		gtag('js', new Date());
 
-		gtag('config', '{{googleAnalyticsTrackingId}}');
+		gtag('config', [[${googleAnalyticsTrackingId}]]);
 	</script>
 
 </div>
