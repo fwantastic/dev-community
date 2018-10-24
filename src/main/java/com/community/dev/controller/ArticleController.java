@@ -109,7 +109,7 @@ public class ArticleController {
 		return "articles/form";
 	}
 
-	@GetMapping("tags/{tagIds}")
+	@GetMapping("/tags/{tagIds}")
 	public String listByTags(Model model, @PathVariable List<Long> tagIds,
 			@PageableDefault(sort = { "articleId" }, direction = Direction.DESC, size = 20) Pageable pageable) {
 
