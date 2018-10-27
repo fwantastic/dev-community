@@ -1,25 +1,24 @@
-<head th:fragment="header">
+<div th:fragment="headerCommon">
+	<meta charset="utf-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
 
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
+	<title>Fwantastic</title>
 
-<title>Fwantastic</title>
+	<!-- Bootstrap core CSS -->
+	<link
+		href="/startbootstrap-blog-post/vendor/bootstrap/css/bootstrap.min.css"
+		rel="stylesheet" />
 
-<!-- Bootstrap core CSS -->
-<link
-	href="/startbootstrap-blog-post/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet" />
+	<!-- Multiple select -->
+	<link href="/fastselect/fastselect.min.css" rel="stylesheet" />
 
-<!-- Multiple select -->
-<link href="/fastselect/fastselect.min.css" rel="stylesheet" />
+	<!-- Custom styles for this template -->
+	<link href="/startbootstrap-blog-post/blog-post.css" rel="stylesheet" />
 
-<!-- Custom styles for this template -->
-<link href="/startbootstrap-blog-post/blog-post.css" rel="stylesheet" />
-
-<style>
+	<style>
 .fstElement {
 	font-size: 0.8em;
 }
@@ -45,9 +44,15 @@
 	overflow: hidden;
 }
 </style>
-
-<div sec:authorize="!isAuthenticated()">
-	<div th:replace="common/google :: googleAnalytics"></div>
 </div>
 
+<head th:fragment="header">
+<div th:replace="common/header :: headerCommon"></div>
 </head>
+
+<head th:fragment="articleHeader">
+<div th:replace="common/header :: headerCommon"></div>
+<div th:replace="common/google :: googleAnalytics"></div>
+</head>
+
+
