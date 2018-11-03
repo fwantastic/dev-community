@@ -4,8 +4,8 @@ import com.community.dev.persistence.FileUpload;
 
 public interface FileService {
 
-	FileUpload save(FileUpload article);
+	FileUpload save(FileUpload fileUpload);
 
-	FileUpload findByArticleId(Long fileId);
+	FileUpload findByUploadId(Long fileUploadId);
 
 }

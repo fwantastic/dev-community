@@ -23,19 +23,19 @@ public class FileUpload implements Serializable {
 	private Long fileUploadId;
 
 	@Column(name = "ORIG_FILE_NAME")
-	private String userNickname;
+	private String originalFileName;
 
 	@Column(name = "SAVE_FILE_NAME")
-	private String password;
+	private String saveFileName;
 
 	@Column(name = "FILE_PATH")
-	private String userEmail;
+	private String filePath;
 
 	@Column(name = "CONTENT_TYPE")
-	private String emailSubscription;
+	private String contentType;
 
 	@Column(name = "FILE_SIZE")
-	private Integer activityPoint;
+	private Long fileSize;
 
 	@Column(name = "IS_ACTIVE")
 	@Type(type = "yes_no")
@@ -55,44 +55,44 @@ public class FileUpload implements Serializable {
 		this.fileUploadId = fileUploadId;
 	}
 
-	public String getUserNickname() {
-		return userNickname;
+	public String getOriginalFileName() {
+		return originalFileName;
 	}
 
-	public void setUserNickname(String userNickname) {
-		this.userNickname = userNickname;
+	public void setOriginalFileName(String originalFileName) {
+		this.originalFileName = originalFileName;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getSaveFileName() {
+		return saveFileName;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
+	public String getFilePath() {
+		return filePath;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
-	public String getEmailSubscription() {
-		return emailSubscription;
+	public String getContentType() {
+		return contentType;
 	}
 
-	public void setEmailSubscription(String emailSubscription) {
-		this.emailSubscription = emailSubscription;
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
-	public Integer getActivityPoint() {
-		return activityPoint;
+	public Long getFileSize() {
+		return fileSize;
 	}
 
-	public void setActivityPoint(Integer activityPoint) {
-		this.activityPoint = activityPoint;
+	public void setFileSize(Long fileSize) {
+		this.fileSize = fileSize;
 	}
 
 	public Boolean getIsActive() {
