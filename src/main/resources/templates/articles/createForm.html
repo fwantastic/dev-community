@@ -23,8 +23,8 @@
 				<hr />
 
 				<form name="createUserForm" method="POST" action="/articles">
-					<input type="hidden" th:name="${_csrf.parameterName}"
-						th:value="${_csrf.token}" />
+					<input type="hidden" id="_csrf_token"
+						th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
 					<div class="form-group">
 						<label for="userEmail">제목</label> <input class="form-control"
@@ -80,8 +80,46 @@
 
 <div th:replace="common/markdown :: markdownFooter"></div>
 
+<div>
+	<form>
+		파일 추가하기 <input type="file" id="myFile" />
+	</form>
+	<button type="submit" class="btn btn-success clearfix float-right"
+		id="MyButton">저장</button>
+</div>
+
 <script type="text/javascript">
 	$('.multipleSelect').fastselect();
+</script>
+
+<script>
+	$(document).ready(function() {
+		$(function() {
+			$("#MyButton").click(function() {
+				var file = document.getElementById('myFile');
+
+				var _csrf_token = $("#_csrf_token").val();
+
+				console.log('token=' + _csrf_token)
+				console.log(file.files[0])
+
+				var form_data = new FormData();
+				form_data.append('file', file.files[0]);
+				$.ajax({
+					data : form_data,
+					type : "POST",
+					headers : {
+						'X-CSRF-Token' : _csrf_token
+					},
+					url : '/file',
+					cache : false,
+					contentType : false,
+					enctype : 'multipart/form-data',
+					processData : false,
+				});
+			});
+		});
+	});
 </script>
 
 </html>
