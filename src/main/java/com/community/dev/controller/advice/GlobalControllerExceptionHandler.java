@@ -22,7 +22,8 @@ public class GlobalControllerExceptionHandler {
 	@ExceptionHandler(value = { Exception.class })
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ResponseEntity<Object> unknownException(Exception ex) {
-		logger.error(ex.getCause().toString());
+
+		logger.error("Error:", ex);
 
 		emailService.sendSimpleMessage("ERROR-" + ex.getMessage(), ex.getStackTrace().toString());
 
