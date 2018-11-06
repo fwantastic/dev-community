@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.community.dev.persistence.FileUpload;
-import com.community.dev.repository.FileRepository;
+import com.community.dev.repository.FileUploadRepository;
 
 @Service
-public class FileServiceImpl implements FileService {
+public class FileUploadServiceImpl implements FileUploadService {
 
 	@Autowired
-	private FileRepository fileRepository;
+	private FileUploadRepository fileRepository;
 
 	@Override
 	public FileUpload save(FileUpload fileUpload) {

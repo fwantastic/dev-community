@@ -2,7 +2,7 @@ package com.community.dev.service;
 
 import com.community.dev.persistence.FileUpload;
 
-public interface FileService {
+public interface FileUploadService {
 
 	FileUpload save(FileUpload fileUpload);
 
