@@ -21,8 +21,8 @@ function enableTab(id) {
 
 enableTab('contents');
 
-var Remarkable = require('remarkable');
-var hljs = require('highlight.js') // https://highlightjs.org/
+//var Remarkable = require('remarkable');
+//var hljs = require('highlight.js') // https://highlightjs.org/
 
 // Actual default values
 var md = new Remarkable('full', {
