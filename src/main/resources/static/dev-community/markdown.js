@@ -21,24 +21,24 @@ function enableTab(id) {
 
 enableTab('contents');
 
-//var Remarkable = require('remarkable');
-//var hljs = require('highlight.js') // https://highlightjs.org/
+var Remarkable = require('remarkable');
+var hljs = require('highlight.js') // https://highlightjs.org/
 
 // Actual default values
 var md = new Remarkable('full', {
-	//html : false, // Enable HTML tags in source
-	//xhtmlOut : false, // Use '/' to close single tags (<br />)
+	html : false, // Enable HTML tags in source
+	xhtmlOut : false, // Use '/' to close single tags (<br />)
 	breaks : true, // Convert '\n' in paragraphs into <br>
-	//langPrefix : 'language-', // CSS language prefix for fenced blocks
-	//linkify : true, // autoconvert URL-like texts to links
-	//linkTarget : '', // set target to open link in
+	langPrefix : 'language-', // CSS language prefix for fenced blocks
+	linkify : true, // autoconvert URL-like texts to links
+	linkTarget : '', // set target to open link in
 
 	// Enable some language-neutral replacements + quotes beautification
-	//typographer : false,
+	typographer : true,
 
 	// Double + single quotes replacement pairs, when typographer enabled,
 	// and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
-	//quotes : '“”‘’',
+	quotes : '“”‘’',
 
 	// Highlighter function. Should return escaped HTML,
 	// or '' if input not changed
@@ -59,8 +59,46 @@ var md = new Remarkable('full', {
 	}
 });
 
-var convert = function() {
+var convertMarkdown = function() {
 	$('#preview').html(md.render($('#contents').val()));
 };
-convert();
-$('#contents').keyup(convert);
+
+// $('#contents').keyup(convert);
+
+var uploadFile = function() {
+	var file = document.getElementById("fileUpload");
+
+	if (file.files.length == 0) {
+		alert("Choose file to upload");
+		return;
+	}
+
+	var _csrf_token = $("#_csrf_token").val();
+
+	var form_data = new FormData();
+	form_data.append("file", file.files[0]);
+	$.ajax({
+		data : form_data,
+		type : "POST",
+		headers : {
+			"X-CSRF-Token" : _csrf_token
+		},
+		url : "/files",
+		cache : false,
+		contentType : false,
+		enctype : "multipart/form-data",
+		processData : false,
+		success : function(data) {
+			alert('File has been uploaded. File URL: ' + data);
+
+			var newRow = "<tr><td>" + data + "</td><td>" + file.files[0].name
+					+ "</td></tr>";
+			$('#fileUploadTable tr:last').after(newRow);
+
+			document.getElementById("fileUpload").value = null;
+		},
+		error : function() {
+			alert("Failed to upload file");
+		}
+	});
+}
