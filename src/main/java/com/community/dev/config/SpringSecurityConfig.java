@@ -29,10 +29,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		// resources that will be ignored for authentication
 		// @formatter:off
 		web.ignoring().antMatchers(
-				"/dev-community/**",
-				"/remarkable/**",
-				"/startbootstrap-blog-post/**",
-				"/twbs-pagination/**"
+				"/dev-community/**"
 				);
 		// @formatter:on
 	}
