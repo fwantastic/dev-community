@@ -3,8 +3,6 @@
 
 <head th:replace="common/header :: header"></head>
 
-<div th:replace="common/markdown :: markdownHeader"></div>
-
 <body>
 
 	<div th:replace="common/navigator :: navigator"></div>
@@ -53,11 +51,27 @@
 
 					<hr />
 
+					<button type="button" class="btn btn-info clearfix float-left"
+						onclick="convertMarkdown();">미리보기</button>
+
 					<button type="submit" class="btn btn-success clearfix float-right">저장</button>
 					<div class="clearfix"></div>
 
 					<hr />
 				</form>
+
+				<div>
+					<input type="file" id="fileUpload" />
+					<button type="button" class="btn btn-info clearfix float-right"
+						id="fileUploadButton" onclick="uploadFile();">파일 업로드</button>
+
+					<table style="width: 100%" id="fileUploadTable">
+						<tr>
+							<th>FileUploadId</th>
+							<th>File Name</th>
+						</tr>
+					</table>
+				</div>
 
 			</div>
 
@@ -80,8 +94,6 @@
 </body>
 
 <div th:replace="common/footer :: footer"></div>
-
-<div th:replace="common/markdown :: markdownFooter"></div>
 
 <script type="text/javascript" th:inline="javascript">
 	$('.multipleSelect').fastselect();

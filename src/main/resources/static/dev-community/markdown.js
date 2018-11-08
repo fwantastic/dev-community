@@ -1,4 +1,6 @@
-//Enable the tab character onkeypress (onkeydown) inside textarea... 
+"use strict";
+
+// Enable the tab character onkeypress (onkeydown) inside textarea...
 function enableTab(id) {
 	var el = document.getElementById(id);
 	el.onkeydown = function(e) {
@@ -21,49 +23,48 @@ function enableTab(id) {
 
 enableTab('contents');
 
-//var Remarkable = require('remarkable');
-//var hljs = require('highlight.js') // https://highlightjs.org/
+$('document').ready(loadHighlight());
 
-// Actual default values
-var md = new Remarkable('full', {
-	html : false, // Enable HTML tags in source
-	xhtmlOut : false, // Use '/' to close single tags (<br />)
-	breaks : true, // Convert '\n' in paragraphs into <br>
-	langPrefix : 'language-', // CSS language prefix for fenced blocks
-	linkify : true, // autoconvert URL-like texts to links
-	linkTarget : '', // set target to open link in
+function loadHighlight() {
+	hljs.initHighlightingOnLoad();
 
-	// Enable some language-neutral replacements + quotes beautification
-	typographer : true,
+	showdown
+			.extension(
+					'codehighlight',
+					function() {
+						function htmlunencode(text) {
+							return (text.replace(/&amp;/g, '&').replace(
+									/&lt;/g, '<').replace(/&gt;/g, '>'));
+						}
+						return [ {
+							type : 'output',
+							filter : function(text, converter, options) {
+								// use new shodown's regexp engine to
+								// conditionally parse codeblocks
+								var left = '<pre><code\\b[^>]*>', right = '</code></pre>', flags = 'g', replacement = function(
+										wholeMatch, match, left, right) {
+									// unescape match to prevent double escaping
+									match = htmlunencode(match);
+									return left
+											+ hljs.highlightAuto(match).value
+											+ right;
+								};
+								return showdown.helper.replaceRecursiveRegExp(
+										text, replacement, left, right, flags);
+							}
+						} ];
+					});
 
-	// Double + single quotes replacement pairs, when typographer enabled,
-	// and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
-	quotes : '“”‘’',
+}
 
-	// Highlighter function. Should return escaped HTML,
-	// or '' if input not changed
-	highlight : function(str, lang) {
-		if (lang && hljs.getLanguage(lang)) {
-			try {
-				return hljs.highlight(lang, str).value;
-			} catch (err) {
-			}
-		}
-
-		try {
-			return hljs.highlightAuto(str).value;
-		} catch (err) {
-		}
-
-		return ''; // use external default escaping
-	}
+var converter = new showdown.Converter({
+	extensions : [ 'codehighlight' ]
 });
 
 var convertMarkdown = function() {
-	$('#preview').html(md.render($('#contents').val()));
+	var txt = $('#contents').val();
+	document.getElementById('preview').innerHTML = converter.makeHtml(txt);
 };
-
-// $('#contents').keyup(convert);
 
 var uploadFile = function() {
 	var file = document.getElementById("fileUpload");
