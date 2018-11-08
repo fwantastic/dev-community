@@ -21,11 +21,12 @@ function enableTab(id) {
 	};
 }
 
-enableTab('contents');
-
 $('document').ready(loadHighlight());
 
 function loadHighlight() {
+
+	enableTab('contents');
+
 	hljs.initHighlightingOnLoad();
 
 	showdown
@@ -61,9 +62,10 @@ var converter = new showdown.Converter({
 	extensions : [ 'codehighlight' ]
 });
 
-var convertMarkdown = function() {
-	var txt = $('#contents').val();
-	document.getElementById('preview').innerHTML = converter.makeHtml(txt);
+var convertMarkdown = function(sourceElement, targetElement) {
+	var markdownText = $('#' + sourceElement).val();
+	document.getElementById(targetElement).innerHTML = converter
+			.makeHtml(markdownText);
 };
 
 var uploadFile = function() {
@@ -78,28 +80,32 @@ var uploadFile = function() {
 
 	var form_data = new FormData();
 	form_data.append("file", file.files[0]);
-	$.ajax({
-		data : form_data,
-		type : "POST",
-		headers : {
-			"X-CSRF-Token" : _csrf_token
-		},
-		url : "/files",
-		cache : false,
-		contentType : false,
-		enctype : "multipart/form-data",
-		processData : false,
-		success : function(data) {
-			alert('File has been uploaded. File URL: ' + data);
+	$
+			.ajax({
+				data : form_data,
+				type : "POST",
+				headers : {
+					"X-CSRF-Token" : _csrf_token
+				},
+				url : "/files",
+				cache : false,
+				contentType : false,
+				enctype : "multipart/form-data",
+				processData : false,
+				success : function(data) {
+					alert('File has been uploaded. File URL: ' + data);
 
-			var newRow = "<tr><td>" + data + "</td><td>" + file.files[0].name
-					+ "</td></tr>";
-			$('#fileUploadTable tr:last').after(newRow);
+					var newRow = "<tr><td><input type='text' readonly='readonly' value='"
+							+ data
+							+ "' /></td><td>"
+							+ file.files[0].name
+							+ "</td></tr>";
+					$('#fileUploadTable tr:last').after(newRow);
 
-			document.getElementById("fileUpload").value = null;
-		},
-		error : function() {
-			alert("Failed to upload file");
-		}
-	});
+					document.getElementById("fileUpload").value = null;
+				},
+				error : function() {
+					alert("Failed to upload file");
+				}
+			});
 }
