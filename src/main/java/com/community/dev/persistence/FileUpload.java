@@ -28,9 +28,6 @@ public class FileUpload implements Serializable {
 	@Column(name = "SAVE_FILE_NAME")
 	private String saveFileName;
 
-	@Column(name = "FILE_PATH")
-	private String filePath;
-
 	@Column(name = "CONTENT_TYPE")
 	private String contentType;
 
@@ -69,14 +66,6 @@ public class FileUpload implements Serializable {
 
 	public void setSaveFileName(String saveFileName) {
 		this.saveFileName = saveFileName;
-	}
-
-	public String getFilePath() {
-		return filePath;
-	}
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
 	}
 
 	public String getContentType() {
