@@ -62,10 +62,20 @@ var converter = new showdown.Converter({
 	extensions : [ 'codehighlight' ]
 });
 
-var convertMarkdown = function(sourceElement, targetElement) {
-	var markdownText = $('#' + sourceElement).val();
+function convertMarkdown(sourceElement, targetElement) {
+
+	var markdownText = document.getElementById(sourceElement).value;
 	document.getElementById(targetElement).innerHTML = converter
 			.makeHtml(markdownText);
+
+	// console.log(document.getElementById(targetElement));
+	// console.log(document.getElementById(targetElement).innerHTML);
+
+	// This is required if converting text dynamically, otherwise the code block
+	// is not highlighted correctly.
+	$('pre code').each(function(i, block) {
+		hljs.highlightBlock(block);
+	});
 };
 
 var uploadFile = function() {

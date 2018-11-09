@@ -1,48 +1,40 @@
-pre {
-	white-space: pre-wrap; /* css-3 */
-	white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-	white-space: -pre-wrap; /* Opera 4-6 */
-	white-space: -o-pre-wrap; /* Opera 7 */
-	word-wrap: break-word; /* Internet Explorer 5.5+ */
-	/* color: #bd4147; */
-	background-color: #f8f9fa;
-	border: 1px solid #dfdfdf;
-	margin-top: 1.5em;
-	margin-bottom: 1.5em;
-	padding: 0.125rem 0.3125rem 0.0625rem;
-	font-family: monospace;
-}
-
-code {
-	padding: 0.2rem 0.4rem;
-	font-size: 90%;
-	color: #bd4147;
-	background-color: #f8f9fa;
-	border: 1px solid #dfdfdf;
-	border-radius: 0.25rem;
-}
-
-pre code {
-  padding: 0;
-  font-size: inherit;
-  color: inherit;
-  background-color: transparent;
-  border: none;
-  border-radius: 0;
-}
 
 /*!
  * Start Bootstrap - Blog Post (https://startbootstrap.com/template-overviews/blog-post)
  * Copyright 2013-2017 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-blog-post/blob/master/LICENSE)
  */
-
 body {
-  padding-top: 60px;
+	padding-top: 60px;
 }
 
-@media (min-width: 992px) {
-  body {
-    padding-top: 60px;
-  }
+@media ( min-width : 992px) {
+	body {
+		padding-top: 60px;
+	}
+}
+
+.fstElement {
+	font-size: 0.8em;
+}
+
+.fstToggleBtn {
+	min-width: 16.5em;
+}
+
+.submitBtn {
+	display: none;
+}
+
+.fstMultipleMode {
+	display: block;
+}
+
+.fstMultipleMode .fstControls {
+	width: 100%;
+}
+
+.wordwrap {
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
