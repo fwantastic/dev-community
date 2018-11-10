@@ -22,7 +22,7 @@
 
 				<form name="createUserForm" method="POST" action="/articles">
 					<input type="hidden" name="_method" value="put" /> <input
-						type="hidden" th:name="${_csrf.parameterName}"
+						type="hidden" id="_csrf_token" th:name="${_csrf.parameterName}"
 						th:value="${_csrf.token}" /> <input type="hidden"
 						name="articleId" th:value="${article.articleId}" />
 
@@ -51,7 +51,8 @@
 
 					<hr />
 
-					<button type="button" class="btn btn-info clearfix float-left"
+					<button id="previewButton" type="button"
+						class="btn btn-info clearfix float-left"
 						onclick="convertMarkdown('contents', 'preview');">미리보기</button>
 
 					<button type="submit" class="btn btn-success clearfix float-right">저장</button>
@@ -99,6 +100,7 @@
 	$('.multipleSelect').fastselect();
 </script>
 
-<script src="/dev-community/dev-community.js"></script>
+<script type="text/javascript" src="/dev-community/dev-community.js"></script>
 
 </html>
+
