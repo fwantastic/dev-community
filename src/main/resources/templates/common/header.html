@@ -31,8 +31,9 @@
 
 <head th:fragment="articleHeader">
 <div th:replace="common/header :: headerCommon"></div>
-<div sec:authorize="!isAuthenticated()"
-	th:replace="common/google :: googleAnalytics"></div>
+<div sec:authorize="!isAuthenticated()">
+	<div th:replace="common/google :: googleAnalytics"></div>
+</div>
 </head>
 
 
